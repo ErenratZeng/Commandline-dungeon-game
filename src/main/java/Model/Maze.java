@@ -5,9 +5,21 @@ import org.json.JSONArray;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Maze {
     private String[][] layout;
+    private int playerX, playerY;
+    private List<int[]> enemies;
+    private int exitX, exitY;
+    private int[][] playerPosition;
+    private int[][] enemyPosition;
+    private int[][] itemPosition;
+
+    public Maze() {
+        this.enemies = new ArrayList<>();
+    }
 
     public void load_map(String filePath) {
         try {
@@ -41,7 +53,21 @@ public class Maze {
                 }
 
                 for (int j = 0; j < cols; j++) {
-                    layout[i][j] = String.valueOf(row.charAt(j));
+                    char tile = row.charAt(j);
+                    layout[i][j] = String.valueOf(tile);
+                    switch (tile) {
+                        case 'p':
+                            playerX = i;
+                            playerY = j;
+                            break;
+                        case 'm':
+                            enemies.add(new int[]{i, j});
+                            break;
+                        case 'e':
+                            exitX = i;
+                            exitY = j;
+                            break;
+                    }
                 }
             }
 
@@ -50,6 +76,26 @@ public class Maze {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public int[] getPlayerPosition() {
+        //TODO
+        return null;
+    }
+
+    public List<int[]> getEnemiesPositions() {
+        //TODO
+        return null;
+    }
+
+    public int[] getExitPosition() {
+        //TODO
+        return null;
+    }
+
+    public String getTile(int x, int y){
+        //TODO
+        return null;
     }
 
     public String[][] getLayout() {

@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class Map {
+public class Maze {
     private String[][] layout;
 
     public void load_map(String filePath) {

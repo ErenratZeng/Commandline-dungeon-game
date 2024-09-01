@@ -2,10 +2,14 @@ package View;
 
 import Model.Maze;
 
+import java.util.Scanner;
+
 public class Viewer {
     private Maze maze;
+    Scanner scanner;
     public Viewer(Maze maze){
         this.maze = maze;
+        this.scanner = new Scanner(System.in);
     }
     public void printMap() {
         if (maze.getLayout() != null) {
@@ -19,4 +23,9 @@ public class Viewer {
             System.out.println("Map is not loaded properly.");
         }
     }
+
+    public void getInput(){
+        String input = scanner.nextLine();
+    }
+
 }

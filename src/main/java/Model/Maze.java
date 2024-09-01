@@ -78,6 +78,14 @@ public class Maze {
         }
     }
 
+    public int getRows(){
+        return layout.length;
+    }
+
+    public int getCols(){
+        return layout[0].length;
+    }
+
     public int[] getPlayerPosition() {
         //TODO
         return null;

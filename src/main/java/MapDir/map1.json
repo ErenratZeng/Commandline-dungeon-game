@@ -1,0 +1,10 @@
+{
+  "map": [
+    "|p|x|x|x|m|x|",
+    "|x|m|x|x|x|x|",
+    "|x|x|m|x|x|x|",
+    "|x|x|m|x|m|x|",
+    "|x|x|x|x|x|x|",
+    "|x|x|x|x|m|e|"
+  ]
+}

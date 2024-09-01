@@ -18,7 +18,8 @@ public class Player extends Character{
         return getHealth() + amount;
     }
 
-    public void use_item(String item){
+    //When player pick up item, the effect will be applied
+    public void use_item(Item item){
         //TODO
     }
 

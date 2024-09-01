@@ -52,16 +52,7 @@ public class Maze {
         }
     }
 
-    public void printMap() {
-        if (layout != null) {
-            for (String[] row : layout) {
-                for (String tile : row) {
-                    System.out.print(tile);
-                }
-                System.out.println();
-            }
-        } else {
-            System.out.println("Map is not loaded properly.");
-        }
+    public String[][] getLayout() {
+        return layout;
     }
 }

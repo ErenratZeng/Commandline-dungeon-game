@@ -1,9 +1,12 @@
-package Model;
+package Game.Models;
 
-public class Sword extends Item{
+import Engine.Model.Item;
+import Game.Models.Player;
+
+public class Sword extends Item {
     boolean isUsed;
-    public Sword() {
-        super("Sword");
+    public Sword(int x, int y, char c) {
+        super(x, y, c);
         this.isUsed = false;
     }
 

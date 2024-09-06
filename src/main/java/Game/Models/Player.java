@@ -1,14 +1,17 @@
-package Model;
+package Game.Models;
+
+import Engine.Model.Character;
+import Engine.Model.Item;
 
 import java.util.ArrayList;
 
-public class Player extends Character{
+public class Player extends Character {
     private int x;
     private int y;
     ArrayList inventory;
-    public Player(int health) {
-        super(health);
-        inventory = new ArrayList();
+    public Player(int x, int y, char c) {
+        super(x, y, c);
+        inventory = new ArrayList<Item>();
     }
 
     public void setPosition(int x, int y){

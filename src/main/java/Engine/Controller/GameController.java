@@ -1,18 +1,18 @@
-package Controller;
+package Engine.Controller;
 
-import Model.Maze;
-import Model.Player;
-import View.Viewer;
+import Engine.Model.Maze;
+import Game.Models.Player;
+import Engine.Engine;
 
 import java.util.Scanner;
 
 public class GameController {
     private Maze maze;
     private Player player;
-    private Viewer viewer;
+    private Engine viewer;
     private Scanner scanner;
 
-    public GameController(Maze maze, Player player, Viewer viewer){
+    public GameController(Maze maze, Player player, Engine viewer){
        this.maze = maze;
        this.player = player;
        this.viewer = viewer;

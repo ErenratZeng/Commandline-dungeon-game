@@ -1,12 +1,14 @@
 package Engine;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class GameConfig {
     private String title;
     private String title_art;
     private ArrayList<ElementConfig> characters;
 
+    private ArrayList<ControlConfig> controls;
     private int [] map_size;
 
     public String getTitle() {
@@ -34,6 +36,24 @@ public class GameConfig {
 
     public int[] getMapSize() {
         return map_size;
+    }
+
+    public ArrayList<ControlConfig> getControls() {
+        return controls;
+    }
+
+
+    public static class ControlConfig {
+        public String getName() {
+            return name;
+        }
+
+        public Set<String> getInputKeys() {
+            return input;
+        }
+
+        String  name;
+        Set<String> input;
     }
 
     public static class ElementConfig {

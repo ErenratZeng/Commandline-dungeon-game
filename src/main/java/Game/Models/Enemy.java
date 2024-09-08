@@ -1,10 +1,12 @@
-package Model;
+package Game.Models;
+
+import Engine.Model.Character;
 
 import java.util.Random;
 
 public class Enemy extends Character {
-    public Enemy(int health) {
-        super(health);
+    public Enemy(int x, int y, char c) {
+        super(x, y, c);
     }
 
     @Override

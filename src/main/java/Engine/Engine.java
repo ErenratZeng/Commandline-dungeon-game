@@ -22,9 +22,8 @@ public class Engine {
     ArrayList<Item> items;
     GameConfig config;
     HashMap<String, String> inputMap;
-
-
     Scanner scanner;
+
     public Engine(String ConfigFile) throws FileNotFoundException, JsonSyntaxException {
         Gson gson = new Gson();
         scanner = new Scanner(System.in);
@@ -45,4 +44,16 @@ public class Engine {
     public void printMap() {
         System.out.println(this.maze.renderMaze());
     }
+
+    public void movePlayer(String direction) {
+        boolean moved = maze.movePlayer(direction);
+
+        if (!moved) {
+            System.out.println("Invalid move or move out of bounds.");
+        } else {
+            System.out.println("Player moved " + direction + ".");
+            printMap();
+        }
+    }
+
 }

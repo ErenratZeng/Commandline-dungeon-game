@@ -1,6 +1,7 @@
 package Engine.Model;
 
 import Engine.GameConfig;
+import Game.Models.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -67,6 +68,52 @@ public class Maze {
             out.append('\n');
         }
         return out.toString();
+    }
+
+    public boolean movePlayer(String direction){
+        int newX = playerX;
+        int newY = playerY;
+
+        switch (direction.toLowerCase()){
+            case "w":
+                newX -= 1;
+                break;
+
+            case "s":
+                newX += 1;
+                break;
+
+            case "a":
+                newY -= 1;
+                break;
+
+            case "d":
+                newY += 1;
+                break;
+
+            default:
+                System.out.println("Invalid direction");
+                return false;
+        }
+        if (newX < 0 || newX >= sizeRow || newY < 0 || newY >= sizeCol) {
+            System.out.println("Move out of bounds!");
+            return false;
+        }
+
+        if (layout[newX][newY] != null && !(layout[newX][newY] instanceof Item)) {
+            System.out.println("Blocked by " + layout[newX][newY].getSymbol());
+            return false;
+        }
+
+        layout[playerX][playerY] = null;
+        playerX = newX;
+        playerY = newY;
+        layout[playerX][playerY] = new Player(playerX, playerY, 'p');
+        return true;
+    }
+
+    public void renderMazeAfterMove() {
+        System.out.println(this.renderMaze());
     }
 
     public int getRows(){

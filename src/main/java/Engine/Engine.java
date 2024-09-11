@@ -16,7 +16,7 @@ import java.util.Set;
 
 
 public class Engine {
-    private Maze maze;
+    public Maze maze;
     public InputController inputController;
     ArrayList<Character> characters;
     ArrayList<Item> items;
@@ -47,6 +47,11 @@ public class Engine {
 
     public void movePlayer(String direction) {
         boolean moved = maze.movePlayer(direction);
+
+        if (maze.isGameOver()){
+            System.out.println("Congratulations! You've reached the exit and won the game!");
+            return;
+        }
 
         if (!moved) {
             System.out.println("Invalid move or move out of bounds.");

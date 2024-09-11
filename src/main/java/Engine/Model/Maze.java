@@ -15,6 +15,7 @@ public class Maze {
     private int[][] playerPosition;
     private int[][] enemyPosition;
     private int[][] itemPosition;
+    private boolean gameOver = false;
 
     public Maze(int[] map_size, GameConfig config) {
         try {
@@ -26,9 +27,9 @@ public class Maze {
            for (GameConfig.ElementConfig c : config.getCharacters()) {
                Class<?> aClass = Class.forName(c.getClassname());
                for (int [] p : c.getPositions()) {
-                   if (p.length < 2) throw  new IllegalArgumentException("Positions malformed for character " + c.getName());
+                   if (p.length < 2) throw new IllegalArgumentException("Positions malformed for character " + c.getName());
                    Object elementObject = aClass.getDeclaredConstructor(int.class, int.class, char.class).newInstance(p[0], p[1], c.getSymbol());
-                   if (! (elementObject instanceof  Character)) throw new IllegalArgumentException("The Character class is not appropriate for " + c.getName());
+                   if (! (elementObject instanceof Character)) throw new IllegalArgumentException("The Character class is not appropriate for " + c.getName());
                    if (layout[p[0]][p[1]] != null) throw new IllegalArgumentException("The position of " + c.getName() + " overlaps it's position with another element");
                    layout[p[0]][p[1]] = (MazeElement) elementObject;
                }
@@ -37,13 +38,25 @@ public class Maze {
             for (GameConfig.ElementConfig c : config.getItems()) {
                 Class<?> aClass = Class.forName(c.getClassname());
                 for (int [] p : c.getPositions()) {
-                    if (p.length < 2) throw  new IllegalArgumentException("Positions malformed for character " + c.getName());
+                    if (p.length < 2) throw new IllegalArgumentException("Positions malformed for character " + c.getName());
                     Object elementObject = aClass.getDeclaredConstructor(int.class, int.class, char.class).newInstance(p[0], p[1], c.getSymbol());
-                    if (! (elementObject instanceof  Item)) throw new IllegalArgumentException("The Item class is not appropriate for " + c.getName());
+                    if (! (elementObject instanceof Item)) throw new IllegalArgumentException("The Item class is not appropriate for " + c.getName());
                     if (layout[p[0]][p[1]] != null) throw new IllegalArgumentException("The position of " + c.getName() + " overlaps it's position with another element");
                     layout[p[0]][p[1]] = (MazeElement) elementObject;
                 }
             }
+            // add the exit to the layout
+            for (GameConfig.ElementConfig c : config.getExit()) {
+                Class<?> aClass = Class.forName(c.getClassname());
+                for (int[] p : c.getPositions()) {
+                    if (p.length < 2) throw new IllegalArgumentException("Positions malformed for character " + c.getName());
+                    Object elementObject = aClass.getDeclaredConstructor(int.class, int.class, char.class).newInstance(p[0], p[1], c.getSymbol());
+                    if (!(elementObject instanceof Exit)) throw new IllegalArgumentException("The Exit class is not appropriate for " + c.getName());
+                    if (layout[p[0]][p[1]] != null) throw new IllegalArgumentException("The position of " + c.getName() + " overlaps it's position with another element");
+                    layout[p[0]][p[1]] = (MazeElement) elementObject;
+                }
+            }
+
         } catch (IllegalArgumentException e) {
             System.err.println("Error while constructing maze: " + e.getMessage());
         }
@@ -95,6 +108,12 @@ public class Maze {
                 System.out.println("Invalid direction");
                 return false;
         }
+
+        if (layout[newX][newY] != null && layout[newX][newY] instanceof Exit) {
+            gameOver = true;
+            return true;
+        }
+
         if (newX < 0 || newX >= sizeRow || newY < 0 || newY >= sizeCol) {
             System.out.println("Move out of bounds!");
             return false;
@@ -110,6 +129,10 @@ public class Maze {
         playerY = newY;
         layout[playerX][playerY] = new Player(playerX, playerY, 'p');
         return true;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 
     public void renderMazeAfterMove() {

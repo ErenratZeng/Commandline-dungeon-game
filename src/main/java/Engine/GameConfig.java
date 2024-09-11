@@ -7,7 +7,9 @@ public class GameConfig {
     private String title;
     private String title_art;
     private ArrayList<ElementConfig> characters;
-
+    private  ArrayList<ElementConfig> items;
+    private ArrayList<ElementConfig> exit;
+    private ArrayList<String> map;
     private ArrayList<ControlConfig> controls;
     private int [] map_size;
 
@@ -26,13 +28,13 @@ public class GameConfig {
     public ArrayList<ElementConfig> getItems() {
         return items;
     }
+    public ArrayList<ElementConfig> getExit(){
+        return exit;
+    }
 
     public ArrayList<String> getMap() {
         return map;
     }
-
-    private  ArrayList<ElementConfig> items;
-    private ArrayList<String> map;
 
     public int[] getMapSize() {
         return map_size;

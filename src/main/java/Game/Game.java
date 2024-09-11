@@ -63,6 +63,12 @@ public class Game {
                     System.out.println("Unknown command, try again.");
                     break;
             }
+
+            if (engine.maze.isGameOver()) {
+                System.out.println("Game over! Exiting game...");
+                break;
+            }
+
         }
     }
 

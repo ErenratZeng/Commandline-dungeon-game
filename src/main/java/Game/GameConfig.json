@@ -74,5 +74,15 @@
       ],
       "classname": "Game.Models.Sword"
     }
+  ],
+  "exit" : [
+    {
+      "name": "Exit",
+      "symbol": "Q",
+      "positions": [
+        [0, 1]
+      ],
+      "classname": "Engine.Model.Exit"
+    }
   ]
 }

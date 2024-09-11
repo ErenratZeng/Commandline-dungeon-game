@@ -39,6 +39,8 @@ public class Engine {
         System.out.println(title);
         System.out.println(divider);
         System.out.println(config.getTitle_art());
+        System.out.println(divider);
+        System.out.println("Press 'y' to enter the game");
     }
 
     public void printMap() {

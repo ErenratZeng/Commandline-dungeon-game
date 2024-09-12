@@ -135,10 +135,6 @@ public class Maze {
         return gameOver;
     }
 
-    public void renderMazeAfterMove() {
-        System.out.println(this.renderMaze());
-    }
-
     public int getRows(){
         return layout.length;
     }

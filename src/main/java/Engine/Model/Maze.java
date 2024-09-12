@@ -109,14 +109,14 @@ public class Maze {
                 return false;
         }
 
-        if (layout[newX][newY] != null && layout[newX][newY] instanceof Exit) {
-            gameOver = true;
-            return true;
-        }
-
         if (newX < 0 || newX >= sizeRow || newY < 0 || newY >= sizeCol) {
             System.out.println("Move out of bounds!");
             return false;
+        }
+
+        if (layout[newX][newY] != null && layout[newX][newY] instanceof Exit) {
+            gameOver = true;
+            return true;
         }
 
         if (layout[newX][newY] != null && !(layout[newX][newY] instanceof Item)) {

@@ -22,13 +22,14 @@ public class Game {
         engine.print_title_screen();
 
         InputController inputController = engine.inputController;
+        int[] playerStartPosition = engine.getInitialPlayerPosition();
 
         switch (engine.inputController.getInput(WelcomeScreenControls)) {
             case 0 :
                 System.out.println("Starting game...");
                 engine.printMap();
                 System.out.println("Pls type w/a/s/d for moving");
-                Player player = new Player(0, 0, 'P');
+                Player player = new Player(playerStartPosition[0], playerStartPosition[1], 'P');
                 gameLoop(engine, inputController, player);
                 break;
             case 1 :

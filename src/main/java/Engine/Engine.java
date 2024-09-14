@@ -43,6 +43,19 @@ public class Engine {
         System.out.println("Press 'y' to enter the game");
     }
 
+    public int[] getInitialPlayerPosition() {
+        int[] defaultPosition = new int[]{0, 0};
+        for (GameConfig.ElementConfig charConfig : config.getCharacters()) {
+            if ("player".equals(charConfig.getName())) {
+                int[][] positions = charConfig.getPositions();
+                if (positions != null && positions.length > 0 && positions[0].length == 2) {
+                    return positions[0];
+                }
+            }
+        }
+        return defaultPosition;
+    }
+
     public void printMap() {
         System.out.println(this.maze.renderMaze());
     }
@@ -94,5 +107,8 @@ public class Engine {
             printMap();
         }
     }
+
+
+
 
 }

@@ -2,20 +2,21 @@ package Engine.Model;
 
 import Engine.GameConfig;
 import Game.Models.Player;
+import Game.Models.Rock;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class Maze {
     private MazeElement[][] layout;
-    private int sizeRow, sizeCol;
+    private int sizeRow;
+    private int sizeCol;
     private int playerX, playerY;
     private List<int[]> enemies;
     private int exitX, exitY;
     private int[][] playerPosition;
     private int[][] enemyPosition;
     private int[][] itemPosition;
-    private boolean gameOver = false;
 
     public Maze(int[] map_size, GameConfig config) {
         try {
@@ -56,6 +57,17 @@ public class Maze {
                     layout[p[0]][p[1]] = (MazeElement) elementObject;
                 }
             }
+            // add the block to the layout
+            for (GameConfig.ElementConfig c : config.getBlock()) {
+                Class<?> aClass = Class.forName(c.getClassname());
+                for (int[] p : c.getPositions()) {
+                    if (p.length < 2) throw new IllegalArgumentException("Positions malformed for character " + c.getName());
+                    Object elementObject = aClass.getDeclaredConstructor(int.class, int.class, char.class).newInstance(p[0], p[1], c.getSymbol());
+                    if (!(elementObject instanceof Rock)) throw new IllegalArgumentException("The Rock class is not appropriate for " + c.getName());
+                    if (layout[p[0]][p[1]] != null) throw new IllegalArgumentException("The position of " + c.getName() + " overlaps it's position with another element");
+                    layout[p[0]][p[1]] = (MazeElement) elementObject;
+                }
+            }
 
         } catch (IllegalArgumentException e) {
             System.err.println("Error while constructing maze: " + e.getMessage());
@@ -81,58 +93,6 @@ public class Maze {
             out.append('\n');
         }
         return out.toString();
-    }
-
-    public boolean movePlayer(String direction){
-        int newX = playerX;
-        int newY = playerY;
-
-        switch (direction.toLowerCase()){
-            case "w":
-                newX -= 1;
-                break;
-
-            case "s":
-                newX += 1;
-                break;
-
-            case "a":
-                newY -= 1;
-                break;
-
-            case "d":
-                newY += 1;
-                break;
-
-            default:
-                System.out.println("Invalid direction");
-                return false;
-        }
-
-        if (newX < 0 || newX >= sizeRow || newY < 0 || newY >= sizeCol) {
-            System.out.println("Move out of bounds!");
-            return false;
-        }
-
-        if (layout[newX][newY] != null && layout[newX][newY] instanceof Exit) {
-            gameOver = true;
-            return true;
-        }
-
-        if (layout[newX][newY] != null && !(layout[newX][newY] instanceof Item)) {
-            System.out.println("Blocked by " + layout[newX][newY].getSymbol());
-            return false;
-        }
-
-        layout[playerX][playerY] = null;
-        playerX = newX;
-        playerY = newY;
-        layout[playerX][playerY] = new Player(playerX, playerY, 'p');
-        return true;
-    }
-
-    public boolean isGameOver() {
-        return gameOver;
     }
 
     public int getRows(){

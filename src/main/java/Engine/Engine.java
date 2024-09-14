@@ -1,9 +1,9 @@
 package Engine;
 
 import Engine.Controller.InputController;
+import Engine.Model.*;
 import Engine.Model.Character;
-import Engine.Model.Item;
-import Engine.Model.Maze;
+import Game.Models.Player;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -12,8 +12,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Set;
-
 
 public class Engine {
     public Maze maze;
@@ -23,6 +21,7 @@ public class Engine {
     GameConfig config;
     HashMap<String, String> inputMap;
     Scanner scanner;
+    private boolean gameOver;
 
     public Engine(String ConfigFile) throws FileNotFoundException, JsonSyntaxException {
         Gson gson = new Gson();
@@ -30,6 +29,7 @@ public class Engine {
         config = gson.fromJson(new FileReader(ConfigFile), GameConfig.class);
         maze = new Maze(config.getMapSize(), config);
         inputController = new InputController(config, scanner);
+        gameOver = false;
     }
 
     public void print_title_screen () {
@@ -47,10 +47,42 @@ public class Engine {
         System.out.println(this.maze.renderMaze());
     }
 
-    public void movePlayer(String direction) {
-        boolean moved = maze.movePlayer(direction);
+    public boolean moveCharacter(Player player, Direction direction) {
+        int[] newCoords = player.movePlayer(direction);
+        int newX = newCoords[0];
+        int newY = newCoords[1];
 
-        if (maze.isGameOver()){
+
+        if (newX < 0 || newX >= maze.getRows() || newY < 0 || newY >= maze.getCols()) {
+            System.out.println("Move out of bounds!");
+            return false;
+        }
+
+        if (maze.getLayout()[newX][newY] != null && maze.getLayout()[newX][newY] instanceof Exit) {
+            gameOver = true;
+            return true;
+        }
+
+        if (maze.getLayout()[newX][newY] != null && !(maze.getLayout()[newX][newY] instanceof Item)){
+            System.out.println("Blocked by " + maze.getLayout()[newX][newY].getSymbol());
+            return false;
+        }
+
+        maze.getLayout()[player.getX()][player.getY()] = null;
+        player.setPosition(newX, newY);
+        maze.getLayout()[newX][newY] = player;
+
+        return true;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void movePlayer(Player player, Direction direction) {
+        boolean moved = moveCharacter(player, direction);
+
+        if (isGameOver()){
             System.out.println("Congratulations! You've reached the exit and won the game!");
             return;
         }

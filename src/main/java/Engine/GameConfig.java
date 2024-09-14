@@ -11,6 +11,7 @@ public class GameConfig {
     private ArrayList<ElementConfig> exit;
     private ArrayList<String> map;
     private ArrayList<ControlConfig> controls;
+    private ArrayList<ElementConfig> block;
     private int [] map_size;
 
     public String getTitle() {
@@ -31,7 +32,9 @@ public class GameConfig {
     public ArrayList<ElementConfig> getExit(){
         return exit;
     }
-
+    public ArrayList<ElementConfig> getBlock(){
+        return block;
+    }
     public ArrayList<String> getMap() {
         return map;
     }

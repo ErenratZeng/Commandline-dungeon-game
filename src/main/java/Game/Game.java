@@ -2,6 +2,8 @@ package Game;
 
 import Engine.Controller.InputController;
 import Engine.Engine;
+import Engine.Model.Direction;
+import Game.Models.Player;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -26,7 +28,8 @@ public class Game {
                 System.out.println("Starting game...");
                 engine.printMap();
                 System.out.println("Pls type w/a/s/d for moving");
-                gameLoop(engine, inputController);
+                Player player = new Player(0, 0, 'P');
+                gameLoop(engine, inputController, player);
                 break;
             case 1 :
                 System.out.println("Thank you for playing !");
@@ -37,24 +40,26 @@ public class Game {
         }
     }
 
-    public static void gameLoop(Engine engine, InputController inputController) {
+    public static void gameLoop(Engine engine, InputController inputController, Player player) {
         ArrayList<String> movementControls = new ArrayList<>(Arrays.asList("move_up", "move_down", "move_left", "move_right"));
 
         while (true) {
             int commandIndex = inputController.getInput(movementControls);
             String command = movementControls.get(commandIndex);
+
+            Direction direction = null;
             switch (command) {
                 case "move_up":
-                    engine.movePlayer("w");
+                    direction = direction.UP;
                     break;
                 case "move_down":
-                    engine.movePlayer("s");
+                    direction = direction.DOWN;
                     break;
                 case "move_left":
-                    engine.movePlayer("a");
+                    direction = direction.LEFT;
                     break;
                 case "move_right":
-                    engine.movePlayer("d");
+                    direction = direction.RIGHT;
                     break;
                 case "quit":
                     System.out.println("Exiting game...");
@@ -64,7 +69,11 @@ public class Game {
                     break;
             }
 
-            if (engine.maze.isGameOver()) {
+            if (direction != null) {
+                engine.movePlayer(player, direction);
+            }
+
+            if (engine.isGameOver()) {
                 System.out.println("Game over! Exiting game...");
                 break;
             }

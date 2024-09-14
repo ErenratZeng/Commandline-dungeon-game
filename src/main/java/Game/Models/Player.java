@@ -1,26 +1,37 @@
 package Game.Models;
 
 import Engine.Model.Character;
+import Engine.Model.Direction;
 import Engine.Model.Item;
 
 import java.util.ArrayList;
 
 public class Player extends Character {
-    private int x;
-    private int y;
     ArrayList inventory;
     public Player(int x, int y, char c) {
         super(x, y, c);
         inventory = new ArrayList<Item>();
     }
 
-    public void setPosition(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
+    public int[] movePlayer(Direction direction){
+        int newX = this.getX();
+        int newY = this.getY();
 
-    public int[] getPosition(){
-        return new int[]{x, y};
+        switch (direction){
+            case UP:
+                newX -= 1;
+                break;
+            case DOWN:
+                newX += 1;
+                break;
+            case LEFT:
+                newY -= 1;
+                break;
+            case RIGHT:
+                newY += 1;
+                break;
+        }
+        return new int[]{newX, newY};
     }
 
     @Override

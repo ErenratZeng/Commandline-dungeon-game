@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Maze {
     private MazeElement[][] layout;
-    private int sizeRow, sizeCol;
+    private int sizeRow;
+    private int sizeCol;
     private int playerX, playerY;
     private List<int[]> enemies;
     private int exitX, exitY;
@@ -25,9 +26,9 @@ public class Maze {
            for (GameConfig.ElementConfig c : config.getCharacters()) {
                Class<?> aClass = Class.forName(c.getClassname());
                for (int [] p : c.getPositions()) {
-                   if (p.length < 2) throw  new IllegalArgumentException("Positions malformed for character " + c.getName());
+                   if (p.length < 2) throw new IllegalArgumentException("Positions malformed for character " + c.getName());
                    Object elementObject = aClass.getDeclaredConstructor(int.class, int.class, char.class).newInstance(p[0], p[1], c.getSymbol());
-                   if (! (elementObject instanceof  Character)) throw new IllegalArgumentException("The Character class is not appropriate for " + c.getName());
+                   if (! (elementObject instanceof Character)) throw new IllegalArgumentException("The Character class is not appropriate for " + c.getName());
                    if (layout[p[0]][p[1]] != null) throw new IllegalArgumentException("The position of " + c.getName() + " overlaps it's position with another element");
                    layout[p[0]][p[1]] = (MazeElement) elementObject;
                }
@@ -36,9 +37,20 @@ public class Maze {
             for (GameConfig.ElementConfig c : config.getItems()) {
                 Class<?> aClass = Class.forName(c.getClassname());
                 for (int [] p : c.getPositions()) {
-                    if (p.length < 2) throw  new IllegalArgumentException("Positions malformed for character " + c.getName());
+                    if (p.length < 2) throw new IllegalArgumentException("Positions malformed for character " + c.getName());
                     Object elementObject = aClass.getDeclaredConstructor(int.class, int.class, char.class).newInstance(p[0], p[1], c.getSymbol());
-                    if (! (elementObject instanceof  Item)) throw new IllegalArgumentException("The Item class is not appropriate for " + c.getName());
+                    if (! (elementObject instanceof Item)) throw new IllegalArgumentException("The Item class is not appropriate for " + c.getName());
+                    if (layout[p[0]][p[1]] != null) throw new IllegalArgumentException("The position of " + c.getName() + " overlaps it's position with another element");
+                    layout[p[0]][p[1]] = (MazeElement) elementObject;
+                }
+            }
+            // add the exit to the layout
+            for (GameConfig.ElementConfig c : config.getExit()) {
+                Class<?> aClass = Class.forName(c.getClassname());
+                for (int[] p : c.getPositions()) {
+                    if (p.length < 2) throw new IllegalArgumentException("Positions malformed for character " + c.getName());
+                    Object elementObject = aClass.getDeclaredConstructor(int.class, int.class, char.class).newInstance(p[0], p[1], c.getSymbol());
+                    if (!(elementObject instanceof Exit)) throw new IllegalArgumentException("The Exit class is not appropriate for " + c.getName());
                     if (layout[p[0]][p[1]] != null) throw new IllegalArgumentException("The position of " + c.getName() + " overlaps it's position with another element");
                     layout[p[0]][p[1]] = (MazeElement) elementObject;
                 }

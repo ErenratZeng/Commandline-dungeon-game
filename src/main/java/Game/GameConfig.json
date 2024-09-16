@@ -36,7 +36,7 @@
     "name": "player",
     "symbol": "P",
     "positions": [
-      [0, 0]
+      [1, 2]
     ],
     "classname": "Game.Models.Player"
   },
@@ -72,7 +72,17 @@
       "positions": [
         [1, 0], [2, 0], [2, 1], [3, 0], [4,0], [4, 2], [5, 0], [5, 2], [5, 3]
       ],
-      "classname": "Game.Models.Sword"
+      "classname": "Game.Models.Rock"
+    }
+  ],
+  "exit" : [
+    {
+      "name": "Exit",
+      "symbol": "Q",
+      "positions": [
+        [5, 5]
+      ],
+      "classname": "Engine.Model.Exit"
     }
   ]
 }

@@ -13,5 +13,9 @@ public abstract class Item extends MazeElement {
         return name;
     }
 
+    public boolean isBlocking() {
+        return false;
+    }
+
     public abstract void effect(Player player);
 }

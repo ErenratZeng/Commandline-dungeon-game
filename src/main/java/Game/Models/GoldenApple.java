@@ -13,4 +13,10 @@ public class GoldenApple extends Item {
         //TODO
         //Heal player for 1 health
     }
+
+    @Override
+    public boolean isBlocking() {
+        return super.isBlocking();
+    }
+
 }

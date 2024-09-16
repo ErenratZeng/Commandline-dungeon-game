@@ -76,6 +76,11 @@ public class Engine {
             return true;
         }
 
+        if (maze.getLayout()[newX][newY] != null && maze.getLayout()[newX][newY].isBlocking()) {
+            System.out.println("Blocked by " + maze.getLayout()[newX][newY].getSymbol());
+            return false;
+        }
+
         if (maze.getLayout()[newX][newY] != null && !(maze.getLayout()[newX][newY] instanceof Item)){
             System.out.println("Blocked by " + maze.getLayout()[newX][newY].getSymbol());
             return false;

@@ -1,8 +1,6 @@
 package Engine.Model;
 
 import Engine.GameConfig;
-import Game.Models.Player;
-import Game.Models.Rock;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -57,18 +55,6 @@ public class Maze {
                     layout[p[0]][p[1]] = (MazeElement) elementObject;
                 }
             }
-            // add the block to the layout
-            for (GameConfig.ElementConfig c : config.getBlock()) {
-                Class<?> aClass = Class.forName(c.getClassname());
-                for (int[] p : c.getPositions()) {
-                    if (p.length < 2) throw new IllegalArgumentException("Positions malformed for character " + c.getName());
-                    Object elementObject = aClass.getDeclaredConstructor(int.class, int.class, char.class).newInstance(p[0], p[1], c.getSymbol());
-                    if (!(elementObject instanceof Rock)) throw new IllegalArgumentException("The Rock class is not appropriate for " + c.getName());
-                    if (layout[p[0]][p[1]] != null) throw new IllegalArgumentException("The position of " + c.getName() + " overlaps it's position with another element");
-                    layout[p[0]][p[1]] = (MazeElement) elementObject;
-                }
-            }
-
         } catch (IllegalArgumentException e) {
             System.err.println("Error while constructing maze: " + e.getMessage());
         }

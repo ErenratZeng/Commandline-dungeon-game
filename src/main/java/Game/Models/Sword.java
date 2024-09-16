@@ -20,6 +20,11 @@ public class Sword extends Item {
         return isUsed;
     }
 
+    @Override
+    public boolean isBlocking() {
+        return super.isBlocking();
+    }
+
     public void setUsed(){
         isUsed = true;
     }

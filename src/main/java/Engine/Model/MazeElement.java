@@ -34,4 +34,8 @@ public abstract class MazeElement {
         this.Y = y;
         this.symbol = s;
     }
+
+    public boolean isBlocking() {
+        return true;
+    }
 }

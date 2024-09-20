@@ -76,7 +76,6 @@ public class Engine {
         String title = "Welcome to " + config.getTitle();
         printHeaderBlock(title);
         System.out.println(config.getTitle_art());
-        System.out.println("Press 'y' to enter the game");
     }
 
     public static  void printHeaderBlock(String title) {
@@ -113,27 +112,33 @@ public class Engine {
             return false;
         }
         MazeElement elementNewXY =  maze.getLayout()[newX][newY];
-        if (maze.getLayout()[newX][newY] != null && elementNewXY instanceof Transition transition) {
-            transition.applyTransition(this);
-            return true;
-        }
-
-        if (maze.getLayout()[newX][newY] != null && elementNewXY.isBlocking()) {
-            System.out.println("Blocked by " + maze.getLayout()[newX][newY].getSymbol());
-            return false;
-        }
-
-        if (maze.getLayout()[newX][newY] != null && elementNewXY instanceof Item item) {
-            System.out.println("You found an item !");
-            item.onInteract(this);
-        }
-
-        if (maze.getLayout()[newX][newY] != null && !(elementNewXY instanceof Item)){
-            System.out.println("Blocked by " + maze.getLayout()[newX][newY].getSymbol());
+        switch (elementNewXY) {
+            case null:
+                break;
+            case Transition transition :
+                transition.applyTransition(this);
+                break;
+            case Character tileCharacter:
+                boolean canMoveInto = tileCharacter.onInteract(this);
+                if (!canMoveInto) {
+                    System.out.println("Move blocked by " + character.getName());
+                    return  false;
+                }
+                break;
+            case Item item:
+                item.onInteract(this);
+                if (item.isBlocking()) {
+                    System.out.println("Move bocked by " + item.getName());
+                    return false;
+                }
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + elementNewXY);
         }
 
         maze.getLayout()[character.getX()][character.getY()] = null;
         character.setPosition(newX, newY);
+        System.out.println(character.getName() + " moves in the direction " + direction.name());
         maze.getLayout()[newX][newY] = character;
 
         return true;

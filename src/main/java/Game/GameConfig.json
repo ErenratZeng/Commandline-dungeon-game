@@ -37,6 +37,10 @@
       "input": ["h", "health"]
     },
     {
+      "name" : "map",
+      "input" : ["m", "map"]
+    },
+    {
       "name" : "quit",
       "input" : ["q", "exit"]
     }

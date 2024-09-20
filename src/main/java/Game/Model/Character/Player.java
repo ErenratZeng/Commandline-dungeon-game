@@ -1,12 +1,13 @@
 package Game.Model.Character;
 
+import Engine.Engine;
 import Engine.Model.Character;
 import Engine.Model.Direction;
 
 public class Player extends Character {
 
     public Player(int x, int y) {
-        super(x, y, 'P');
+        super(x, y, 'P', "Player");
     }
 
     @Override
@@ -29,5 +30,11 @@ public class Player extends Character {
                 break;
         }
         return new int[]{newX, newY};
+    }
+
+    @Override
+    public boolean onInteract(Engine engine) {
+        System.err.println("The player shouldn't interact with anyone");
+        return false;
     }
 }

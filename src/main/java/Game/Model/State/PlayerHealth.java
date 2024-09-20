@@ -18,7 +18,7 @@ public class PlayerHealth extends GameState<Integer> {
     }
 
     @Override
-    public void printGameState() {
-        System.out.format("Health: %d", this.value);
+    public void print() {
+        System.out.format("Health: %d\n", this.value);
     }
 }

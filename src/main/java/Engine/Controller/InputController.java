@@ -22,11 +22,13 @@ public class InputController {
     }
 
     @SafeVarargs
-    public final String getInput(ArrayList<String>... inputs) {
+    public final String getInput(String prompt, String context, ArrayList<String>... inputs) {
         List<String> validInputs = Arrays.stream(inputs)
                 .flatMap(Collection::stream).toList();
         while (true) {
-            System.out.print("> ");
+            if (prompt != null) System.out.println(prompt);
+            if (context != null) System.out.print(context + "> ");
+            else System.out.print("> ");
             String input = scanner.nextLine();
             String controlName = keyMap.get(input.trim().toLowerCase());
             if (controlName == null) {
@@ -44,8 +46,9 @@ public class InputController {
     public Integer getIntegerInput(Integer min, Integer max, String prompt, String context) {
         int intInput;
         while (true) {
-            System.out.println(prompt);
-            System.out.print(context + "> ");
+            if (prompt != null) System.out.println(prompt);
+            if (context != null) System.out.print(context + "> ");
+            else System.out.print("> ");
             String input = scanner.nextLine();
             try {
                 intInput = Integer.parseInt(input);

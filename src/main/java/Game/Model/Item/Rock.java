@@ -5,7 +5,7 @@ import Engine.Model.Item;
 
 public class Rock extends Item {
     public Rock(int x, int y) {
-        super(x, y, '#');
+        super(x, y, '#', "Rock");
         this.name = "Rock";
     }
 

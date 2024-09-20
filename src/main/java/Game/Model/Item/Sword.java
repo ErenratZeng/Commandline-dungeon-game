@@ -8,7 +8,7 @@ public class Sword extends Item {
     boolean isUsed;
 
     public Sword(int x, int y) {
-        super(x, y, 'S');
+        super(x, y, 'S', "Sword");
         this.name = "Sword";
         this.isUsed = false;
     }

@@ -7,6 +7,7 @@ import Engine.Model.Item;
 import Game.Model.State.GameWinState;
 import Game.Model.State.Inventory;
 import Game.Model.Character.Player;
+import Game.Model.State.PlayerHealth;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Game {
 
     static  ArrayList<String> responseControls = new ArrayList<>(Arrays.asList("accept", "decline"));
     static  ArrayList<String> movementControls = new ArrayList<>(Arrays.asList("move_up", "move_down", "move_left", "move_right"));
-    static  ArrayList<String> actionControls = new ArrayList<>(Arrays.asList("inventory", "health"));
+    static  ArrayList<String> actionControls = new ArrayList<>(Arrays.asList("inventory", "health", "map"));
     static ArrayList<String> exitControls = new ArrayList<>(List.of("quit"));
 
     static  Engine engine;
@@ -34,7 +35,7 @@ public class Game {
         player = (Player) engine.getCharacter(Player.class.getName()).getFirst();
 
         engine.printTitleScreen();
-        switch (engine.inputController.getInput(responseControls)) {
+        switch (engine.inputController.getInput("Press y to enter and n to exit", "", responseControls)) {
             case "accept":
                 System.out.println("Starting game...");
                 engine.printMap();
@@ -53,12 +54,10 @@ public class Game {
     public static void gameLoop() {
 
         while (true) {
-            Engine.printHeaderBlock("Map");
-            engine.printMap();
-            String command = inputController.getInput(movementControls, actionControls, exitControls);
+            String command = inputController.getInput(null, "dungeon", movementControls, actionControls, exitControls);
             Inventory inventory = (Inventory) engine.getState(Inventory.class.getName());
             GameWinState gameWinState = (GameWinState) engine.getState(GameWinState.class.getName());
-
+            PlayerHealth playerHealth = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
             switch (command) {
                 case "move_up":
                     engine.moveCharacter(player, Direction.UP);
@@ -74,6 +73,13 @@ public class Game {
                     break;
                 case "inventory":
                     InventoryMenu(inventory);
+                    break;
+                case "health":
+                    playerHealth.print();
+                    break;
+                case "map":
+                    Engine.printHeaderBlock("Map Header");
+                    engine.printMap();
                     break;
                 case "quit":
                     System.out.println("Exiting game...");
@@ -103,7 +109,7 @@ public class Game {
                 System.out.println("Oops the inventory is empty !");
                 break;
             }
-            inventory.printGameState();
+            inventory.print();
             int response = inputController.getIntegerInput(0, inventory.getValue().size(), "Enter an item to use (0 to exit)", "Inventory");
             if (response == 0) {
                 break;

@@ -14,7 +14,7 @@ public abstract class GameState<T> {
     public void setValue(T value) {
         this.value = value;
     }
-    public void printGameState() {
+    public void print() {
         System.out.println(this.value);
     }
 

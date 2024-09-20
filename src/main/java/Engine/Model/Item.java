@@ -5,8 +5,8 @@ import Engine.Engine;
 public abstract class Item extends MazeElement {
     protected String name;
 
-    public Item(int x, int y,  char c) {
-        super(x, y, c);
+    public Item(int x, int y, char c, String name) {
+        super(x, y, c, name);
     }
 
     public String getName() {

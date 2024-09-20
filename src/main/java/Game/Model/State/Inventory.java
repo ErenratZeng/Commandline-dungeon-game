@@ -21,7 +21,7 @@ public class Inventory  extends GameState<ArrayList<Item>> {
         this.value.remove(item);
     }
     @Override
-    public void printGameState() {
+    public void print() {
         System.out.println("Items in inventory:");
         for (int i = 0; i < this.value.size(); i++) {
             System.out.format("%d. %s (1x)%n", i+1, this.value.get(i).getName());

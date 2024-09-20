@@ -17,10 +17,12 @@ public abstract class MazeElement {
         return name;
     }
 
-    MazeElement(int x, int y, char s) {
+    MazeElement(int x, int y, char s, String name
+    ) {
         this.x = x;
         this.y = y;
         this.symbol = s;
+        this.name = name;
     }
 
     public boolean isBlocking() {

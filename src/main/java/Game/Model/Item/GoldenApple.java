@@ -7,7 +7,7 @@ import Game.Model.State.PlayerHealth;
 
 public class GoldenApple extends Item {
     public GoldenApple(int x, int y) {
-        super(x, y, 'G');
+        super(x, y, 'G', "Golden Apple");
         this.name = "GoldenApple";
     }
 

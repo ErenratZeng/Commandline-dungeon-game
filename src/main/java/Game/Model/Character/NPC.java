@@ -54,7 +54,7 @@ public class NPC extends Character {
         int newHealth = Math.min(currentHealth + HEAL_AMOUNT, MAX_PLAYER_HEALTH);
 
         int actualHealAmount = newHealth - currentHealth;
-        playerHealth.setValue(newHealth);
+        playerHealth.increaseBy(HEAL_AMOUNT);
 
         if (newHealth == MAX_PLAYER_HEALTH) {
             System.out.println("You've reached maximum health!");
@@ -62,8 +62,6 @@ public class NPC extends Character {
 
         System.out.println("The NPC healed you for " + actualHealAmount + " health points!");
         System.out.println("Your current health is: " + newHealth);
-
-
 
         return true;
     }

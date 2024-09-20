@@ -1,6 +1,6 @@
 package Engine.Model;
 
-import Game.Models.Player;
+import Engine.Engine;
 
 public abstract class Item extends MazeElement {
     protected String name;
@@ -17,5 +17,7 @@ public abstract class Item extends MazeElement {
         return false;
     }
 
-    public abstract void effect(Player player);
+    public abstract void effect(Engine engine);
+
+    public abstract void onInteract(Engine engine);
 }

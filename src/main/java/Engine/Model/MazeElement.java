@@ -1,41 +1,37 @@
 package Engine.Model;
 
 public abstract class MazeElement {
-    int x;
-    int Y;
-    char symbol;
+    protected  int x;
 
-    public int getX() {
-        return x;
-    }
+    protected  int y;
+    protected  char symbol;
 
-    public void setX(int x) {
-        this.x = x;
-    }
+    protected String name;
 
-    public int getY() {
-        return Y;
-    }
-
-    public void setY(int y) {
-        Y = y;
-    }
 
     public char getSymbol() {
         return symbol;
     }
 
-    public void setSymbol(char symbol) {
-        this.symbol = symbol;
+    public String getName() {
+        return name;
     }
 
     MazeElement(int x, int y, char s) {
         this.x = x;
-        this.Y = y;
+        this.y = y;
         this.symbol = s;
     }
 
     public boolean isBlocking() {
         return true;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getX() {
+        return x;
     }
 }

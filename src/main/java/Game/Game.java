@@ -3,36 +3,45 @@ package Game;
 import Engine.Controller.InputController;
 import Engine.Engine;
 import Engine.Model.Direction;
-import Game.Models.Player;
+import Engine.Model.Item;
+import Game.Model.State.GameWinState;
+import Game.Model.State.Inventory;
+import Game.Model.Character.Player;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Game {
 
-    static  ArrayList<String> WelcomeScreenControls = new ArrayList<>(Arrays.asList("accept", "decline"));
+    static  ArrayList<String> responseControls = new ArrayList<>(Arrays.asList("accept", "decline"));
+    static  ArrayList<String> movementControls = new ArrayList<>(Arrays.asList("move_up", "move_down", "move_left", "move_right"));
+    static  ArrayList<String> actionControls = new ArrayList<>(Arrays.asList("inventory", "health"));
+    static ArrayList<String> exitControls = new ArrayList<>(List.of("quit"));
+
+    static  Engine engine;
+    static InputController inputController;
+    static  Player player;
+
     public static void main(String[] args) {
-        Engine engine = null;
         try {
             engine = new Engine("src/main/java/Game/GameConfig.json");
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException(e);
         }
-        engine.print_title_screen();
+        inputController = engine.inputController;
+        player = (Player) engine.getCharacter(Player.class.getName()).getFirst();
 
-        InputController inputController = engine.inputController;
-        int[] playerStartPosition = engine.getInitialPlayerPosition();
-
-        switch (engine.inputController.getInput(WelcomeScreenControls)) {
-            case 0 :
+        engine.printTitleScreen();
+        switch (engine.inputController.getInput(responseControls)) {
+            case "accept":
                 System.out.println("Starting game...");
                 engine.printMap();
                 System.out.println("Pls type w/a/s/d for moving");
-                Player player = new Player(playerStartPosition[0], playerStartPosition[1], 'P');
-                gameLoop(engine, inputController, player);
+                gameLoop();
                 break;
-            case 1 :
+            case "decline" :
                 System.out.println("Thank you for playing !");
                 break;
             default:
@@ -41,26 +50,30 @@ public class Game {
         }
     }
 
-    public static void gameLoop(Engine engine, InputController inputController, Player player) {
-        ArrayList<String> movementControls = new ArrayList<>(Arrays.asList("move_up", "move_down", "move_left", "move_right"));
+    public static void gameLoop() {
 
         while (true) {
-            int commandIndex = inputController.getInput(movementControls);
-            String command = movementControls.get(commandIndex);
+            Engine.printHeaderBlock("Map");
+            engine.printMap();
+            String command = inputController.getInput(movementControls, actionControls, exitControls);
+            Inventory inventory = (Inventory) engine.getState(Inventory.class.getName());
+            GameWinState gameWinState = (GameWinState) engine.getState(GameWinState.class.getName());
 
-            Direction direction = null;
             switch (command) {
                 case "move_up":
-                    direction = direction.UP;
+                    engine.moveCharacter(player, Direction.UP);
                     break;
                 case "move_down":
-                    direction = direction.DOWN;
+                    engine.moveCharacter(player, Direction.DOWN);
                     break;
                 case "move_left":
-                    direction = direction.LEFT;
+                    engine.moveCharacter(player, Direction.LEFT);
                     break;
                 case "move_right":
-                    direction = direction.RIGHT;
+                    engine.moveCharacter(player, Direction.RIGHT);
+                    break;
+                case "inventory":
+                    InventoryMenu(inventory);
                     break;
                 case "quit":
                     System.out.println("Exiting game...");
@@ -70,16 +83,39 @@ public class Game {
                     break;
             }
 
-            if (direction != null) {
-                engine.movePlayer(player, direction);
+            if (gameWinState.getValue() == GameWinState.WinState.PLAYER_WIN) {
+                System.out.println("Yay you won the game ! Exiting game...");
+                break;
             }
-
-            if (engine.isGameOver()) {
-                System.out.println("Game over! Exiting game...");
+            if (gameWinState.getValue() == GameWinState.WinState.PLAYER_LOSE) {
+                System.out.println("Oops you lost the Game ! Exiting game...");
                 break;
             }
 
         }
     }
+
+    public static void InventoryMenu (Inventory inventory) {
+        Engine.printHeaderBlock("Inventory");
+        while (true) {
+            int inventorySize = inventory.getValue().size();
+            if (inventorySize == 0) {
+                System.out.println("Oops the inventory is empty !");
+                break;
+            }
+            inventory.printGameState();
+            int response = inputController.getIntegerInput(0, inventory.getValue().size(), "Enter an item to use (0 to exit)", "Inventory");
+            if (response == 0) {
+                break;
+            }
+            Item item = inventory.getItem(response-1);
+            item.effect(engine);
+            inventory.removeItem(item);
+            System.out.println(item.getName() + "has been applied !");
+        }
+        System.out.println("Exiting Inventory Menu !");
+    }
+
+
 
 }

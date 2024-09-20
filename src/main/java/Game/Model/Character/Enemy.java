@@ -1,17 +1,21 @@
-package Game.Models;
+package Game.Model.Character;
 
 import Engine.Model.Character;
+import Engine.Model.Direction;
 
 import java.util.Random;
 
 public class Enemy extends Character {
-    public Enemy(int x, int y, char c) {
-        super(x, y, c);
+    Integer health;
+    public Enemy(int x, int y) {
+        super(x, y, 'E');
+        this.name = "Enemy";
     }
 
     @Override
-    public int getHealth() {
-        return super.getHealth();
+    public int[] moveCharacter(Direction direction) {
+        System.out.println("You can't control an enemy !");
+        return new int[]{this.x, this.y};
     }
 
     public int setEnemyHealth(){

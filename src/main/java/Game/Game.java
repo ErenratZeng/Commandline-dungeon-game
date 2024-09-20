@@ -54,6 +54,7 @@ public class Game {
     public static void gameLoop() {
 
         while (true) {
+            engine.printMap();
             String command = inputController.getInput(null, "dungeon", movementControls, actionControls, exitControls);
             Inventory inventory = (Inventory) engine.getState(Inventory.class.getName());
             GameWinState gameWinState = (GameWinState) engine.getState(GameWinState.class.getName());

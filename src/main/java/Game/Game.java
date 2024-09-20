@@ -32,7 +32,7 @@ public class Game {
             throw new IllegalArgumentException(e);
         }
         inputController = engine.inputController;
-        player = (Player) engine.getCharacter(Player.class.getName()).getFirst();
+        player = (Player) engine.getCharacter(Player.class.getName()).get(0);
 
         engine.printTitleScreen();
         switch (engine.inputController.getInput("Press y to enter and n to exit", "", responseControls)) {

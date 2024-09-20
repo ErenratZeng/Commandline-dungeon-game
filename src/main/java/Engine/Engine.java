@@ -112,28 +112,25 @@ public class Engine {
             return false;
         }
         MazeElement elementNewXY =  maze.getLayout()[newX][newY];
-        switch (elementNewXY) {
-            case null:
-                break;
-            case Transition transition :
-                transition.applyTransition(this);
-                break;
-            case Character tileCharacter:
-                boolean canMoveInto = tileCharacter.onInteract(this);
-                if (!canMoveInto) {
-                    System.out.println("Move blocked by " + character.getName());
-                    return  false;
-                }
-                break;
-            case Item item:
-                item.onInteract(this);
-                if (item.isBlocking()) {
-                    System.out.println("Move bocked by " + item.getName());
-                    return false;
-                }
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + elementNewXY);
+        if (elementNewXY instanceof  Transition transition) {
+            transition.applyTransition(this);
+        }
+        else if (elementNewXY instanceof  Character tileCharacter) {
+            boolean canMoveInto = tileCharacter.onInteract(this);
+            if (!canMoveInto) {
+                System.out.println("Move blocked by " + character.getName());
+                return  false;
+            }
+        }
+        else if (elementNewXY instanceof  Item item) {
+            item.onInteract(this);
+            if (item.isBlocking()) {
+                System.out.println("Move bocked by " + item.getName());
+                return false;
+            }
+        }
+        else if (elementNewXY != null) {
+            throw new IllegalStateException("Unexpected value: " + elementNewXY);
         }
 
         maze.getLayout()[character.getX()][character.getY()] = null;

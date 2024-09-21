@@ -38,7 +38,6 @@ public class Game {
         switch (engine.inputController.getInput("Press y to enter and n to exit", "", responseControls)) {
             case "accept":
                 System.out.println("Starting game...");
-                engine.printMap();
                 System.out.println("Pls type w/a/s/d for moving");
                 gameLoop();
                 break;

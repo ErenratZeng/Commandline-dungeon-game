@@ -1,30 +1,21 @@
 package Engine.Model;
 
+import Engine.Engine;
+
 public abstract class Character extends MazeElement {
-    protected int health;
-    private String name;
+
     private char symbol;
     private String description;
 
-    public Character(int x, int y, char c){
-        super(x, y, c);
+    public Character(int x, int y, char c, String name){
+        super(x, y, c, name);
     }
     public void setPosition(int x, int y){
-        super.setX(x);
-        super.setY(y);
+        this.x = x;
+        this.y = y;
     }
 
-    public int getHealth() {
-        return health;
-    }
+    public abstract int[] moveCharacter(Direction direction);
 
-    public void setHealth(){
-    }
-
-    public int takeDamage(int amount){
-        return getHealth() - amount;
-    }
-
-
-
+    public abstract boolean onInteract (Engine engine);
 }

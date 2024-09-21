@@ -3,21 +3,24 @@ package Engine;
 import Engine.Controller.InputController;
 import Engine.Model.*;
 import Engine.Model.Character;
-import Game.Models.Player;
+import Game.Model.Character.Player;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+
 public class Engine {
     public Maze maze;
     public InputController inputController;
-    ArrayList<Character> characters;
-    ArrayList<Item> items;
+    HashMap<String, ArrayList<Character>> characters;
+    HashMap<String, ArrayList<Item>> items;
+    HashMap<String, GameState<?>>  gameStates;
     GameConfig config;
     HashMap<String, String> inputMap;
     Scanner scanner;
@@ -29,39 +32,77 @@ public class Engine {
         config = gson.fromJson(new FileReader(ConfigFile), GameConfig.class);
         maze = new Maze(config.getMapSize(), config);
         inputController = new InputController(config, scanner);
-        gameOver = false;
+        gameStates = initializeGameState();
+        // add the characters and the items to a hashmap for quick lookup
+        characters = new HashMap<>();
+        items = new HashMap<>();
+        MazeElement[][] layout = maze.getLayout();
+        for (MazeElement[] es : layout) {
+            for (MazeElement e : es) {
+                String classname = null;
+                if (e != null) classname = e.getClass().getName();
+                if (e instanceof Item item) {
+                    ArrayList<Item> itemList = items.getOrDefault(classname, new ArrayList<>());
+                    itemList.add(item);
+                    items.put(classname, itemList);
+                } else if (e instanceof Character character) {
+                    ArrayList<Character> characterList = characters.getOrDefault(classname, new ArrayList<>());
+                    characterList.add(character);
+                    characters.put(classname, characterList);
+
+                }
+            }
+        }
     }
 
-    public void print_title_screen () {
+    private HashMap<String, GameState<?>> initializeGameState() {
+        HashMap<String, GameState<?>> states = new HashMap<>();
+        try {
+            for (String c : config.getStates()) {
+                Class<?> aClass = Class.forName(c);
+                Object elementObject = aClass.getDeclaredConstructor().newInstance();
+                if (!(elementObject instanceof GameState<?>))
+                    throw new IllegalArgumentException("The Game State class is not appropriate for " + c);
+                states.put(c, (GameState<?>) elementObject);
+            }
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
+                 InvocationTargetException e) {
+            System.err.println("Error while initializing state variable: " + e.getMessage());
+        }
+        return  states;
+    }
+
+    public void printTitleScreen() {
         String title = "Welcome to " + config.getTitle();
+        printHeaderBlock(title);
+        System.out.println(config.getTitle_art());
+    }
+
+    public static  void printHeaderBlock(String title) {
         String divider = new String(new char[title.length()]).replace("\0", "=");
         System.out.println(divider);
         System.out.println(title);
         System.out.println(divider);
-        System.out.println(config.getTitle_art());
-        System.out.println(divider);
-        System.out.println("Press 'y' to enter the game");
     }
 
-    public int[] getInitialPlayerPosition() {
-        int[] defaultPosition = new int[]{0, 0};
-        for (GameConfig.ElementConfig charConfig : config.getCharacters()) {
-            if ("player".equals(charConfig.getName())) {
-                int[][] positions = charConfig.getPositions();
-                if (positions != null && positions.length > 0 && positions[0].length == 2) {
-                    return positions[0];
-                }
-            }
-        }
-        return defaultPosition;
+    public ArrayList<Character> getCharacter(String characterName) {
+        return characters.get(characterName);
+    }
+
+    public ArrayList<Character> getItems (String itemName) {
+        return characters.get(itemName);
+    }
+
+    public GameState<?> getState (String stateName) {
+        return gameStates.get(stateName);
     }
 
     public void printMap() {
         System.out.println(this.maze.renderMaze());
     }
 
-    public boolean moveCharacter(Player player, Direction direction) {
-        int[] newCoords = player.movePlayer(direction);
+    public boolean moveCharacter(Character character, Direction direction) {
+        int[] newCoords = character.moveCharacter(direction);
         int newX = newCoords[0];
         int newY = newCoords[1];
 
@@ -70,50 +111,34 @@ public class Engine {
             System.out.println("Move out of bounds!");
             return false;
         }
-
-        if (maze.getLayout()[newX][newY] != null && maze.getLayout()[newX][newY] instanceof Exit) {
-            gameOver = true;
-            return true;
+        MazeElement elementNewXY =  maze.getLayout()[newX][newY];
+        if (elementNewXY instanceof  Transition transition) {
+            transition.applyTransition(this);
+        }
+        else if (elementNewXY instanceof  Character tileCharacter) {
+            boolean canMoveInto = tileCharacter.onInteract(this);
+            if (!canMoveInto) {
+                System.out.println("Move blocked by " + character.getName());
+                return  false;
+            }
+        }
+        else if (elementNewXY instanceof  Item item) {
+            item.onInteract(this);
+            if (item.isBlocking()) {
+                System.out.println("Move bocked by " + item.getName());
+                return false;
+            }
+        }
+        else if (elementNewXY != null) {
+            throw new IllegalStateException("Unexpected value: " + elementNewXY);
         }
 
-        if (maze.getLayout()[newX][newY] != null && maze.getLayout()[newX][newY].isBlocking()) {
-            System.out.println("Blocked by " + maze.getLayout()[newX][newY].getSymbol());
-            return false;
-        }
-
-        if (maze.getLayout()[newX][newY] != null && !(maze.getLayout()[newX][newY] instanceof Item)){
-            System.out.println("Blocked by " + maze.getLayout()[newX][newY].getSymbol());
-            return false;
-        }
-
-        maze.getLayout()[player.getX()][player.getY()] = null;
-        player.setPosition(newX, newY);
-        maze.getLayout()[newX][newY] = player;
+        maze.getLayout()[character.getX()][character.getY()] = null;
+        character.setPosition(newX, newY);
+        System.out.println(character.getName() + " moves in the direction " + direction.name());
+        maze.getLayout()[newX][newY] = character;
 
         return true;
     }
-
-    public boolean isGameOver() {
-        return gameOver;
-    }
-
-    public void movePlayer(Player player, Direction direction) {
-        boolean moved = moveCharacter(player, direction);
-
-        if (isGameOver()){
-            System.out.println("Congratulations! You've reached the exit and won the game!");
-            return;
-        }
-
-        if (!moved) {
-            System.out.println("Invalid move or move out of bounds.");
-        } else {
-            System.out.println("Player moved " + direction + ".");
-            printMap();
-        }
-    }
-
-
-
 
 }

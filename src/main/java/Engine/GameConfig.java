@@ -6,13 +6,15 @@ import java.util.Set;
 public class GameConfig {
     private String title;
     private String title_art;
+    private ArrayList<String> states;
     private ArrayList<ElementConfig> characters;
-    private  ArrayList<ElementConfig> items;
-    private ArrayList<ElementConfig> exit;
+    private ArrayList<ElementConfig> items;
+    private ArrayList<ElementConfig> transitions;
     private ArrayList<String> map;
     private ArrayList<ControlConfig> controls;
     private ArrayList<ElementConfig> block;
-    private int [] map_size;
+
+    private int[] map_size;
 
     public String getTitle() {
         return title;
@@ -29,12 +31,19 @@ public class GameConfig {
     public ArrayList<ElementConfig> getItems() {
         return items;
     }
-    public ArrayList<ElementConfig> getExit(){
-        return exit;
+
+    public ArrayList<String> getStates() {
+        return states;
     }
-    public ArrayList<ElementConfig> getBlock(){
+
+    public ArrayList<ElementConfig> getTransitions() {
+        return transitions;
+    }
+
+    public ArrayList<ElementConfig> getBlock() {
         return block;
     }
+
     public ArrayList<String> getMap() {
         return map;
     }
@@ -49,27 +58,25 @@ public class GameConfig {
 
 
     public static class ControlConfig {
-        public String getName() {
-            return name;
-        }
+
+        public String name;
+        Set<String> input;
 
         public Set<String> getInputKeys() {
             return input;
         }
 
-        String  name;
-        Set<String> input;
-    }
-
-    public static class ElementConfig {
-        String name;
-        char symbol;
-        int [][] positions;
-        String classname;
-
         public String getName() {
             return name;
         }
+    }
+
+    public static class ElementConfig {
+
+        char symbol;
+        int[][] positions;
+        String classname;
+
 
         public char getSymbol() {
             return symbol;
@@ -83,23 +90,8 @@ public class GameConfig {
             return this.classname;
         }
 
-        @Override
-        public String toString() {
-            return "TokenConfig{" +
-                    "name='" + name + '\'' +
-                    ", symbol=" + symbol +
-                    '}';
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "GameConfig{" +
-                "title='" + title + '\'' +
-                ", title_art='" + title_art + '\'' +
-                ", characters=" + characters +
-                ", items=" + items +
-                ", map=" + map +
-                '}';
     }
 }
+
+
+

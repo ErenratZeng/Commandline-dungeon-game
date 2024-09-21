@@ -7,7 +7,7 @@
 - Design various type of traps entities with attributes and description.
 - Implement the inventory system to define how items are stored and managed.
 
-# View Layer
+# Engine Layer
 - Implement the interface of inventory.
 - Implement the Conform Box when using items.
 - Implement the dialogue with NPC display .

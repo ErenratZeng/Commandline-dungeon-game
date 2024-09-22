@@ -1,0 +1,34 @@
+stages:
+  - build
+  - test
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - chmod +x ./gradlew
+
+build_job:
+  stage: build
+  tags: [comp2100]
+  image: gradle:latest
+  script:
+    - ./gradlew assemble
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 hour
+
+
+test_job1:
+  stage: test
+  tags: [comp2100]
+  image: gradle:latest
+  script:
+    - echo "This job tests something simple"
+    - ./gradlew test
+  artifacts:
+    reports:
+      junit: build/test-results/test/*.xml
+    expire_in: 1 hour

@@ -8,15 +8,11 @@ public class GameConfig {
     private String title;
     private String title_art;
     private ArrayList<String> states;
-    private ArrayList<ElementConfig> characters;
-    private ArrayList<ElementConfig> items;
-    private ArrayList<ElementConfig> transitions;
-    private ArrayList<String> map;
+    private HashMap<Character, String> elements;
     private ArrayList<ControlConfig> controls;
-    private ArrayList<ElementConfig> block;
-    private HashMap<String, String> story;
+    private HashMap<String, char[][]> mazes;
 
-    private int[] map_size;
+    private Character emptyElement;
 
     public String getTitle() {
         return title;
@@ -26,42 +22,25 @@ public class GameConfig {
         return title_art;
     }
 
-    public ArrayList<ElementConfig> getCharacters() {
-        return characters;
-    }
-
-    public ArrayList<ElementConfig> getItems() {
-        return items;
-    }
-
     public ArrayList<String> getStates() {
         return states;
     }
 
-    public ArrayList<ElementConfig> getTransitions() {
-        return transitions;
-    }
-
-    public ArrayList<ElementConfig> getBlock() {
-        return block;
-    }
-
-    public ArrayList<String> getMap() {
-        return map;
-    }
-
-    public int[] getMapSize() {
-        return map_size;
+    public HashMap<Character, String> getElements() {
+        return elements;
     }
 
     public ArrayList<ControlConfig> getControls() {
         return controls;
     }
 
-    public HashMap<String, String> getStory() {
-        return story;
+    public HashMap<String, char[][]> getMazes() {
+        return mazes;
     }
 
+    public Character getEmptyElement() {
+        return emptyElement;
+    }
 
     public static class ControlConfig {
 
@@ -78,18 +57,11 @@ public class GameConfig {
     }
 
     public static class ElementConfig {
-
         char symbol;
-        int[][] positions;
         String classname;
-
 
         public char getSymbol() {
             return symbol;
-        }
-
-        public int[][] getPositions() {
-            return positions;
         }
 
         public String getClassname() {

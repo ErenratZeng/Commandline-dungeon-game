@@ -4,57 +4,42 @@ import Engine.GameConfig;
 import Game.Model.Transition.Exit;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+
+import static java.lang.System.exit;
 
 public class Maze {
     private MazeElement[][] layout;
     private int sizeRow;
     private int sizeCol;
 
-    public Maze(int[] map_size, GameConfig config) {
+    public Maze(char [][] maze_design, HashMap<java.lang.Character, String> elementMap, java.lang.Character emptySymbol) {
         try {
-           if (map_size.length < 2) throw new IllegalArgumentException("The map size is malformed");
-           sizeRow = map_size[0];
-           sizeCol = map_size[1];
-           layout = new MazeElement[sizeRow][sizeCol];
-           // add all the characters to the layout
-           for (GameConfig.ElementConfig c : config.getCharacters()) {
-               Class<?> aClass = Class.forName(c.getClassname());
-               for (int [] p : c.getPositions()) {
-                   if (p.length < 2) throw new IllegalArgumentException("Positions malformed for character " + c.getClassname());
-                   Object elementObject = aClass.getDeclaredConstructor(int.class, int.class).newInstance(p[0], p[1]);
-                   if (! (elementObject instanceof Character character)) throw new IllegalArgumentException("The Character class is not appropriate for " + c.getClassname());
-                   if (layout[p[0]][p[1]] != null) throw new IllegalArgumentException("The position of " + c.getClassname() + " overlaps it's position with another element");
-                   layout[p[0]][p[1]] = (MazeElement) elementObject;
+            if (maze_design.length == 0 || maze_design[0].length == 0) throw new IllegalArgumentException("The maze has a size smaller than 1");
+            this.sizeRow = maze_design.length;
+            this.sizeCol = maze_design[0].length;
+            this.layout = new MazeElement[sizeRow][sizeCol];
+            for (int i=0; i<sizeRow; i++) {
+                for (int j=0; j<sizeCol; j++) {
+                    java.lang.Character symbol = maze_design[i][j];
+                    if (symbol == emptySymbol) continue;
+                    if (! elementMap.containsKey(symbol)) throw new IllegalArgumentException("Unknown Symbol %s found in maze design ".formatted(symbol));
+                    String classname = elementMap.get(symbol);
+                    Class<?> aClass = Class.forName(classname);
+                    Object elementObject = aClass.getDeclaredConstructor(int.class, int.class).newInstance(i, j);
+                    if (layout[i][j] != null) throw new IllegalArgumentException("The position of %s overlaps it's position with another element".formatted(classname));
+                    layout[i][j] = (MazeElement) elementObject;
                }
            }
-           // add all the items to the layout
-            for (GameConfig.ElementConfig c : config.getItems()) {
-                Class<?> aClass = Class.forName(c.getClassname());
-                for (int [] p : c.getPositions()) {
-                    if (p.length < 2) throw new IllegalArgumentException("Positions malformed for character " + c.getClassname());
-                    Object elementObject = aClass.getDeclaredConstructor(int.class, int.class).newInstance(p[0], p[1]);
-                    if (! (elementObject instanceof Item)) throw new IllegalArgumentException("The Item class is not appropriate for " + c.getClassname());
-                    if (layout[p[0]][p[1]] != null) throw new IllegalArgumentException("The position of " + c.getClassname() + " overlaps it's position with another element");
-                    layout[p[0]][p[1]] = (MazeElement) elementObject;
-                }
-            }
-            // add the exit to the layout
-            for (GameConfig.ElementConfig c : config.getTransitions()) {
-                Class<?> aClass = Class.forName(c.getClassname());
-                for (int[] p : c.getPositions()) {
-                    if (p.length < 2) throw new IllegalArgumentException("Positions malformed for character " + c.getClassname());
-                    Object elementObject = aClass.getDeclaredConstructor(int.class, int.class).newInstance(p[0], p[1]);
-                    if (!(elementObject instanceof Exit)) throw new IllegalArgumentException("The Exit class is not appropriate for " + c.getClassname());
-                    if (layout[p[0]][p[1]] != null) throw new IllegalArgumentException("The position of " + c.getClassname() + " overlaps it's position with another element");
-                    layout[p[0]][p[1]] = (MazeElement) elementObject;
-                }
-            }
+
         } catch (IllegalArgumentException e) {
             System.err.println("Error while constructing maze: " + e.getMessage());
+            exit(-1);
         }
         catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
                InvocationTargetException e) {
             System.err.println("Error while constructing maze: Maze Elements are malformed " + e.getMessage());
+            exit(-1);
         }
     }
 

@@ -16,14 +16,14 @@ import java.util.List;
 
 public class Game {
 
-    static  ArrayList<String> responseControls = new ArrayList<>(Arrays.asList("accept", "decline"));
-    static  ArrayList<String> movementControls = new ArrayList<>(Arrays.asList("move_up", "move_down", "move_left", "move_right"));
-    static  ArrayList<String> actionControls = new ArrayList<>(Arrays.asList("inventory", "health", "map"));
+    static ArrayList<String> responseControls = new ArrayList<>(Arrays.asList("accept", "decline"));
+    static ArrayList<String> movementControls = new ArrayList<>(Arrays.asList("move_up", "move_down", "move_left", "move_right"));
+    static ArrayList<String> actionControls = new ArrayList<>(Arrays.asList("inventory", "health", "map"));
     static ArrayList<String> exitControls = new ArrayList<>(List.of("quit"));
 
-    static  Engine engine;
+    static Engine engine;
     static InputController inputController;
-    static  Player player;
+    static Player player;
 
     public static void main(String[] args) {
         try {
@@ -31,6 +31,7 @@ public class Game {
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException(e);
         }
+        engine.setCurrentMaze("level_1");
         inputController = engine.inputController;
         player = (Player) engine.getCharacter(Player.class.getName()).get(0);
 
@@ -41,7 +42,7 @@ public class Game {
                 System.out.println("Pls type w/a/s/d for moving");
                 gameLoop();
                 break;
-            case "decline" :
+            case "decline":
                 System.out.println("Thank you for playing !");
                 break;
             default:
@@ -101,7 +102,7 @@ public class Game {
         }
     }
 
-    public static void InventoryMenu (Inventory inventory) {
+    public static void InventoryMenu(Inventory inventory) {
         Engine.printHeaderBlock("Inventory");
         while (true) {
             int inventorySize = inventory.getValue().size();
@@ -114,14 +115,13 @@ public class Game {
             if (response == 0) {
                 break;
             }
-            Item item = inventory.getItem(response-1);
+            Item item = inventory.getItem(response - 1);
             item.effect(engine);
             inventory.removeItem(item);
             System.out.println(item.getName() + "has been applied !");
         }
         System.out.println("Exiting Inventory Menu !");
     }
-
 
 
 }

@@ -33,7 +33,6 @@ public class Game {
         }
         engine.setCurrentMaze("level_1");
         inputController = engine.inputController;
-        player = (Player) engine.getCharacter(Player.class.getName()).get(0);
 
         engine.printTitleScreen();
         switch (engine.inputController.getInput("Press y to enter and n to exit", "", responseControls)) {
@@ -54,13 +53,13 @@ public class Game {
     }
 
     public static void gameLoop() {
-
+        Inventory inventory = (Inventory) engine.getState(Inventory.class.getName());
+        GameWinState gameWinState = (GameWinState) engine.getState(GameWinState.class.getName());
+        PlayerHealth playerHealth = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
         while (true) {
             engine.printMap();
             String command = inputController.getInput(null, "dungeon", movementControls, actionControls, exitControls);
-            Inventory inventory = (Inventory) engine.getState(Inventory.class.getName());
-            GameWinState gameWinState = (GameWinState) engine.getState(GameWinState.class.getName());
-            PlayerHealth playerHealth = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
+            player = (Player) engine.getCharacter(Player.class.getName()).get(0);
             switch (command) {
                 case "move_up":
                     engine.moveCharacter(player, Direction.UP);

@@ -98,13 +98,32 @@ public class Engine {
     }
 
     public String getStoryline (String part) {
+        StringBuilder storyline = new StringBuilder();
+        HashMap<String, String> storyMap = config.getStory();
+
+        String storyKeyPrefix;
+        String header = "==================================================================================";
         if ("beginning_storyline".equals(part)) {
-            return config.getBeginning_storyline();
+            storyKeyPrefix = "beginning_";
         } else if ("ending_storyline".equals(part)) {
-            return config.getEnding_storyline();
+            storyKeyPrefix = "ending_";
         } else {
             return null;
         }
+
+        storyline.append(header).append("\n");
+
+        for (int i = 1; ; i++){
+            String key = storyKeyPrefix + i;
+            if (storyMap.containsKey(key)) {
+                storyline.append(storyMap.get(key)).append("\n");
+            } else {
+                break;
+            }
+        }
+
+        storyline.append(header).append("\n");
+        return !storyline.isEmpty() ? storyline.toString() : null;
     }
 
     public void printMap() {

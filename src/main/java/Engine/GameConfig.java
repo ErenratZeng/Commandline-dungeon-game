@@ -1,6 +1,7 @@
 package Engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 public class GameConfig {
@@ -13,8 +14,7 @@ public class GameConfig {
     private ArrayList<String> map;
     private ArrayList<ControlConfig> controls;
     private ArrayList<ElementConfig> block;
-    private String beginning_storyline;
-    private String ending_storyline;
+    private HashMap<String, String> story;
 
     private int[] map_size;
 
@@ -58,13 +58,10 @@ public class GameConfig {
         return controls;
     }
 
-    public String getBeginning_storyline() {
-        return beginning_storyline;
+    public HashMap<String, String> getStory() {
+        return story;
     }
 
-    public String getEnding_storyline() {
-        return ending_storyline;
-    }
 
     public static class ControlConfig {
 

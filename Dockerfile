@@ -12,7 +12,6 @@ COPY src /app/src
 RUN sed -i 's/\r$//' ./gradlew
 RUN chmod +x ./gradlew
 
-RUN yum update -y && yum install -y findutils
 RUN ./gradlew build
 
 COPY gson-2.11.0.jar /app/build/libs

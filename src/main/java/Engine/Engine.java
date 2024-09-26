@@ -22,6 +22,8 @@ public class Engine {
     GameConfig config;
     Scanner scanner;
 
+    Runnable onMazeChange;
+
     public Engine(String ConfigFile) throws FileNotFoundException, JsonSyntaxException {
         Gson gson = new Gson();
         scanner = new Scanner(System.in);
@@ -36,8 +38,12 @@ public class Engine {
             throw new IllegalArgumentException("Error setting new maze: Maze name %s doesn't exists".formatted(maze_name));
         this.currentMaze = mazes.get(maze_name);
         initializeCharactersAndItems(); //Initialize the corresponding Character and Items
+        if (onMazeChange != null) onMazeChange.run(); // run any callbacks the game has to do when the maze changes
     }
 
+    public void setOnMazeChange (Runnable runnable) {
+        this.onMazeChange = runnable;
+    }
     public void printTitleScreen() {
         String title = "Welcome to " + config.getTitle();
         printHeaderBlock(title);

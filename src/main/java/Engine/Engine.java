@@ -74,7 +74,7 @@ public class Engine {
     }
 
     // Method to justify the text to a given line width
-    public  List<String> printStory (String story_name) {
+    public void printTextBlock(String story_name) {
         int lineWidth = 80;
         HashMap<String, String> stories = config.getStory();
         if (!stories.containsKey(story_name)) throw  new IllegalArgumentException("Given story name is not found in the config");
@@ -106,7 +106,6 @@ public class Engine {
         }
         System.out.println(divider);
 
-        return lines;
     }
 
     // Method to justify a single line of words to the given line width

@@ -4,7 +4,6 @@ import Engine.Controller.InputController;
 import Engine.Engine;
 import Engine.Model.Direction;
 import Engine.Model.Item;
-import Game.Model.State.GameLevel;
 import Game.Model.State.GameWinState;
 import Game.Model.State.Inventory;
 import Game.Model.Character.Player;
@@ -39,7 +38,7 @@ public class Game {
         switch (engine.inputController.getInput("Press y to enter and n to exit", "", responseControls)) {
             case "accept":
                 System.out.println("Starting game...");
-                engine.printStory("beginning");
+                engine.printTextBlock("beginning");
                 engine.inputController.getInput("Press y to continue...", "", responseControls);
                 System.out.println("Pls type w/a/s/d for moving");
                 gameLoop();
@@ -94,7 +93,7 @@ public class Game {
 
             if (gameWinState.getValue() == GameWinState.WinState.PLAYER_WIN) {
                 System.out.println("Yay you won the game !");
-                engine.printStory("ending");
+                engine.printTextBlock("ending");
                 System.out.println("Exiting game...");
                 break;
             }

@@ -43,7 +43,12 @@
       "input" : ["q", "exit"]
     }
   ],
-  "states" : [ "Game.Model.State.Inventory", "Game.Model.State.PlayerHealth", "Game.Model.State.GameWinState"],
+  "states" : [
+    "Game.Model.State.Inventory",
+    "Game.Model.State.PlayerHealth",
+    "Game.Model.State.GameWinState",
+    "Game.Model.State.GameLevel"
+  ],
   "elements": {
     "P": "Game.Model.Character.Player",
     "E": "Game.Model.Character.Enemy",

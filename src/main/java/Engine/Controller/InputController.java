@@ -35,17 +35,11 @@ public class InputController {
 
                 if (controlName == null) {
                     System.out.println("The command entered is invalid, try again!");
-                    if (prompt != null) System.out.println(prompt);
-                    if (context != null) System.out.print(context + "> ");
-                    else System.out.print("> ");
                     continue;
                 }
 
                 if (!validInputs.contains(controlName)) {
                     System.out.println("The command is not valid in this context, try again!");
-                    if (prompt != null) System.out.println(prompt);
-                    if (context != null) System.out.print(context + "> ");
-                    else System.out.print("> ");
                     continue;
                 }
                 return controlName;

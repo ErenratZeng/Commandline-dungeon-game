@@ -16,7 +16,9 @@ public class GoldenApple extends Item {
         //TODO
         //Heal player for 1 health
         PlayerHealth health = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
+        Inventory inventory = (Inventory) engine.getState(PlayerHealth.class.getName());
         health.increaseBy(10);
+        inventory.removeItem(this);
     }
 
     @Override

@@ -5,19 +5,16 @@ import Engine.Model.Item;
 import Game.Model.State.Inventory;
 
 public class Sword extends Item {
-    boolean isUsed;
 
     public Sword(int x, int y) {
         super(x, y, 'S', "Sword");
         this.name = "Sword";
-        this.isUsed = false;
     }
 
     @Override
     public void effect(Engine engine) {
-        //TODO
-        //By using sword, player can defeat an enemy without losing health
-        isUsed = true;
+        //Player can defeat a single enemy without losing health
+        System.out.println("The sword will protect you against the next enemy attack");
     }
 
     @Override
@@ -28,17 +25,9 @@ public class Sword extends Item {
         inventory.addItem(this);
     }
 
-    public boolean isUsed() {
-        return isUsed;
-    }
-
     @Override
     public boolean isBlocking() {
         return super.isBlocking();
-    }
-
-    public void setUsed() {
-        isUsed = true;
     }
 
 }

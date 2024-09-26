@@ -39,7 +39,7 @@ public class Game {
         switch (engine.inputController.getInput("Press y to enter and n to exit", "", responseControls)) {
             case "accept":
                 System.out.println("Starting game...");
-                PrintBeginningStoryline();
+                printStoryline("beginning_storyline");
                 engine.inputController.getInput("Press y to continue...", "", responseControls);
                 System.out.println("Pls type w/a/s/d for moving");
                 gameLoop();
@@ -94,7 +94,7 @@ public class Game {
 
             if (gameWinState.getValue() == GameWinState.WinState.PLAYER_WIN) {
                 System.out.println("Yay you won the game !");
-                PrintBeginningStoryline();
+                printStoryline("ending_storyline");
                 System.out.println("Exiting game...");
                 break;
             }
@@ -126,6 +126,19 @@ public class Game {
         System.out.println("Exiting Inventory Menu !");
     }
 
+    /**
+     * Prints a specific part of the storyline from the game configuration.
+     *
+     * @param part the identifier for the specific part of the storyline to be printed, which would be beginning_storyline or ending_storyline.
+     */
+     public static void printStoryline(String part) {
+            String storyline = engine.getStoryline(part);
+            if (storyline != null){
+                System.out.println(storyline);
+            } else {
+                System.out.println("Storyline part not found: " + part);
+            }
+    }
 
 
 }

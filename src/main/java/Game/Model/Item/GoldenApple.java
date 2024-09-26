@@ -15,7 +15,7 @@ public class GoldenApple extends Item {
     public void effect(Engine engine) {
         //TODO
         //Heal player for 1 health
-        PlayerHealth health = (PlayerHealth) engine.getState("PlayerHealth");
+        PlayerHealth health = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
         health.increaseBy(10);
     }
 

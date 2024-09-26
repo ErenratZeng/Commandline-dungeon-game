@@ -4,6 +4,7 @@ import Engine.Controller.InputController;
 import Engine.Engine;
 import Engine.Model.Direction;
 import Engine.Model.Item;
+import Game.Model.State.GameLevel;
 import Game.Model.State.GameWinState;
 import Game.Model.State.Inventory;
 import Game.Model.Character.Player;
@@ -124,7 +125,6 @@ public class Game {
         }
         System.out.println("Exiting Inventory Menu !");
     }
-
 
 
 }

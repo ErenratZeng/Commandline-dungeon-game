@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -97,33 +98,62 @@ public class Engine {
         return gameStates.get(stateName);
     }
 
-    public String getStoryline (String part) {
-        StringBuilder storyline = new StringBuilder();
-        HashMap<String, String> storyMap = config.getStory();
+    // Method to justify the text to a given line width
+    public  List<String> printStory (String story_name) {
+        int lineWidth = 80;
+        HashMap<String, String> stories = config.getStory();
+        if (!stories.containsKey(story_name)) throw  new IllegalArgumentException("Given story name is not found in the config");
+        String text = stories.get(story_name);
+        String[] words = text.split(" ");
+        List<String> lines = new ArrayList<>();
+        List<String> currentLine = new ArrayList<>();
+        int currentLineLength = 0;
 
-        String storyKeyPrefix;
-        String header = "==================================================================================";
-        if ("beginning_storyline".equals(part)) {
-            storyKeyPrefix = "beginning_";
-        } else if ("ending_storyline".equals(part)) {
-            storyKeyPrefix = "ending_";
-        } else {
-            return null;
+        for (String word : words) {
+            if (currentLineLength + word.length() + currentLine.size() <= lineWidth) {
+                currentLine.add(word);
+                currentLineLength += word.length();
+            } else {
+                lines.add(justifyLine(currentLine, lineWidth));
+                currentLine.clear();
+                currentLine.add(word);
+                currentLineLength = word.length();
+            }
+        }
+        // Add the last line (left-aligned, no need for justification)
+        lines.add(String.join(" ", currentLine));
+
+        String divider = "*".repeat(lineWidth);  // Top and bottom divider
+
+        System.out.println(divider);
+        for (String line : lines) {
+            System.out.println(line);
+        }
+        System.out.println(divider);
+
+        return lines;
+    }
+
+    // Method to justify a single line of words to the given line width
+    public static String justifyLine(List<String> words, int lineWidth) {
+        if (words.size() == 1) {
+            return words.get(0);  // Single word line
         }
 
-        storyline.append(header).append("\n");
+        int totalSpaces = lineWidth - words.stream().mapToInt(String::length).sum();
+        int gaps = words.size() - 1;
+        int spacePerGap = totalSpaces / gaps;
+        int extraSpaces = totalSpaces % gaps;
 
-        for (int i = 1; ; i++){
-            String key = storyKeyPrefix + i;
-            if (storyMap.containsKey(key)) {
-                storyline.append(storyMap.get(key)).append("\n");
-            } else {
-                break;
+        StringBuilder justifiedLine = new StringBuilder();
+        for (int i = 0; i < words.size(); i++) {
+            justifiedLine.append(words.get(i));
+            if (i < gaps) {
+                justifiedLine.append(" ".repeat(spacePerGap + (i < extraSpaces ? 1 : 0)));
             }
         }
 
-        storyline.append(header).append("\n");
-        return !storyline.isEmpty() ? storyline.toString() : null;
+        return justifiedLine.toString();
     }
 
     public void printMap() {

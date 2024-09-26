@@ -4,6 +4,7 @@ import Engine.Controller.InputController;
 import Engine.Engine;
 import Engine.Model.Direction;
 import Engine.Model.Item;
+import Game.Model.State.GameLevel;
 import Game.Model.State.GameWinState;
 import Game.Model.State.Inventory;
 import Game.Model.Character.Player;
@@ -33,7 +34,6 @@ public class Game {
         }
         engine.setCurrentMaze("level_1");
         inputController = engine.inputController;
-
         engine.printTitleScreen();
         switch (engine.inputController.getInput("Press y to enter and n to exit", "", responseControls)) {
             case "accept":
@@ -54,10 +54,11 @@ public class Game {
         Inventory inventory = (Inventory) engine.getState(Inventory.class.getName());
         GameWinState gameWinState = (GameWinState) engine.getState(GameWinState.class.getName());
         PlayerHealth playerHealth = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
+        GameLevel gameLevel = (GameLevel) engine.getState(GameLevel.class.getName());
+        gameLevel.onLevelChange(() -> player = (Player) engine.getCharacter(Player.class.getName()).get(0));
         while (true) {
             engine.printMap();
             String command = inputController.getInput(null, "dungeon", movementControls, actionControls, exitControls);
-            player = (Player) engine.getCharacter(Player.class.getName()).get(0);
             switch (command) {
                 case "move_up":
                     engine.moveCharacter(player, Direction.UP);

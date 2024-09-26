@@ -91,5 +91,7 @@
         [5, 5]
       ]
     }
-  ]
+  ],
+  "beginning_storyline": "==================================================================================\n  The last thing you remember is venturing into the depths of a forgotten temple, \n         chasing after ancient whispers of a treasure hidden deep within.         \n          As you stand, you notice strange symbols etched into the walls.         \n      In your hand, a worn map points to a labyrinthine maze with one promise     \n                    — \"Find the exit, or be lost forever.\"                      \n              With no other choice, you step forward into the unknown,            \n                 the sound of distant footsteps echoing behind you...             \n==================================================================================",
+  "ending_storyline": "==================================================================================\n         After what feels like hours of navigating the treacherous paths,         \n     you finally see a faint glimmer of light ahead. Exhausted but determined,    \n   you make your way towards it. As you cross the threshold of the final corridor,\n       the maze behind you begins to collapse, sealing itself from the world.     \n       You stumble into the sunlight, breathing in the fresh air of freedom.      \n         The treasure may remain lost, but you have survived the labyrinth,       \n          Now, a new journey awaits, but that’s a story for another day.          \n=================================================================================="
 }

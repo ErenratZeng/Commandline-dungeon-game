@@ -13,6 +13,8 @@ public class GameConfig {
     private ArrayList<String> map;
     private ArrayList<ControlConfig> controls;
     private ArrayList<ElementConfig> block;
+    private String beginning_storyline;
+    private String ending_storyline;
 
     private int[] map_size;
 
@@ -56,6 +58,13 @@ public class GameConfig {
         return controls;
     }
 
+    public String getBeginning_storyline() {
+        return beginning_storyline;
+    }
+
+    public String getEnding_storyline() {
+        return ending_storyline;
+    }
 
     public static class ControlConfig {
 

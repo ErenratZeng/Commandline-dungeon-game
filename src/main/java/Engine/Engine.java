@@ -97,6 +97,16 @@ public class Engine {
         return gameStates.get(stateName);
     }
 
+    public String getStoryline (String part) {
+        if ("beginning_storyline".equals(part)) {
+            return config.getBeginning_storyline();
+        } else if ("ending_storyline".equals(part)) {
+            return config.getEnding_storyline();
+        } else {
+            return null;
+        }
+    }
+
     public void printMap() {
         System.out.println(this.maze.renderMaze());
     }

@@ -17,6 +17,14 @@ public class Inventory  extends GameState<ArrayList<Item>> {
         assert  -1 <  item && item < this.value.size();
         return this.value.get(item);
     }
+    public <T extends Item> T getItem(Class<T> itemClass) {
+        for (Item item : this.value) {
+            if (itemClass.isInstance(item)) {
+                return itemClass.cast(item);
+            }
+        }
+        return  null;
+    }
     public void removeItem (Item item) {
         this.value.remove(item);
     }

@@ -121,7 +121,6 @@ public class Game {
             }
             Item item = inventory.getItem(response - 1);
             item.effect(engine);
-            inventory.removeItem(item);
             System.out.println(item.getName() + "has been applied !");
         }
         System.out.println("Exiting Inventory Menu !");

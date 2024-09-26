@@ -3,6 +3,8 @@ package Game.Model.Character;
 import Engine.Engine;
 import Engine.Model.Character;
 import Engine.Model.Direction;
+import Game.Model.Item.Sword;
+import Game.Model.State.Inventory;
 import Game.Model.State.PlayerHealth;
 
 import java.util.Random;
@@ -19,11 +21,19 @@ public class Enemy extends Character {
         System.out.println("You can't control an enemy !");
         return new int[]{this.x, this.y};
     }
-
     public boolean onInteract (Engine engine) {
         PlayerHealth playerHealth = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
+        Inventory inventory = (Inventory) engine.getState(Inventory.class.getName());
+        Sword sword = inventory.getItem(Sword.class);
+
         System.out.println("You're being attacked by an enemy !");
 
+        if (sword != null) {
+            System.out.println("Good Job! You slayed the enemy with your sword !");
+            System.out.println("You didn't lose any health !");
+            inventory.removeItem(sword);
+            return  true;
+        }
         if (playerHealth.getValue() > this.health) {
             playerHealth.reduceBy(this.health);
             System.out.println("Phew! you survived your remaining health is: "+ playerHealth.getValue());

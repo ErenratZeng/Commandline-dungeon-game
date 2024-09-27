@@ -46,7 +46,7 @@ public class Sword extends Item {
     public void onInteract(Engine engine) {
         System.out.println("You found an... odd sword. Decrepit, yet vibrating with unknown power.");
         System.out.println("Carefully, you add the sword to your inventory.");
-        Inventory inventory = (Inventory) engine.getState(Inventory.class.getName());
+        Inventory inventory = engine.getState(Inventory.class);
         inventory.addItem(this);
     }
 

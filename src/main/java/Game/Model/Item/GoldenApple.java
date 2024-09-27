@@ -30,8 +30,8 @@ public class GoldenApple extends Item {
      */
     @Override
     public void effect(Engine engine) {
-        PlayerHealth health = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
-        Inventory inventory = (Inventory) engine.getState(PlayerHealth.class.getName());
+        PlayerHealth health = engine.getState(PlayerHealth.class);
+        Inventory inventory = engine.getState(Inventory.class);
         health.increaseBy(10);
         inventory.removeItem(this);
     }
@@ -46,7 +46,7 @@ public class GoldenApple extends Item {
     public void onInteract(Engine engine) {
         System.out.println("Consider the doctor's advice with this golden apple. (Re)gain +5 HP.");
         System.out.println("The apple is now in your inventory and awaiting consumption.");
-        Inventory inventory = (Inventory) engine.getState(Inventory.class.getName());
+        Inventory inventory = engine.getState(Inventory.class);
         inventory.addItem(this);
     }
 

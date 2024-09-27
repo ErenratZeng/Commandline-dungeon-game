@@ -47,7 +47,7 @@ public class NPC extends Character {
      * @return Always returns true, indicating the interaction was successful.
      */
     public boolean onInteract(Engine engine) {
-        PlayerHealth playerHealth = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
+        PlayerHealth playerHealth =  engine.getState(PlayerHealth.class);
         System.out.println("You've met a friendly NPC! He is welling to heal you with 10 health");
 
         int currentHealth = playerHealth.getValue();

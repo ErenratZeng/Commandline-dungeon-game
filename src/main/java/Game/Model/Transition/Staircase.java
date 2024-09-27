@@ -14,7 +14,7 @@ public class Staircase extends Transition {
 
     @Override
     public void applyTransition(Engine engine) {
-        GameLevel gameLevel = (GameLevel) engine.getState(GameLevel.class.getName());
+        GameLevel gameLevel = engine.getState(GameLevel.class);
         gameLevel.nextLevel();
         String mazeName = maze_level[gameLevel.getValue()-1];
         engine.setCurrentMaze(mazeName);

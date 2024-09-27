@@ -11,10 +11,9 @@ application {
     mainClassName = 'GameTester'
 }
 
-tasks.named('run') {
-    if (project.hasProperty('mainClass')) {
-        main = project.property('mainClass')
-    }
+task runTest(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = 'Game.GameTester'
 }
 
 dependencies {

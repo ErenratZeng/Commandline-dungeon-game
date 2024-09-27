@@ -20,6 +20,14 @@ build_job:
       - build/libs/*.jar
     expire_in: 1 hour
 
+player_move_test:
+  test_game_job:
+    stage: test
+    tags: [comp2100]
+    image: gradle:latest
+    script:
+      - ./gradlew clean build
+      - ./gradlew runTest
 
 test_job1:
   stage: test
@@ -33,13 +41,3 @@ test_job1:
       junit: build/test-results/test/*.xml
     expire_in: 1 hour
 
-player_move_test:
-  stage: test
-  tags: [comp2100]
-  image: gradle:latest
-  script:
-    - ./gradlew run -PmainClass=GameTester
-  artifacts:
-    paths:
-      - build/reports/tests/test
-    expire_in: 1 hour

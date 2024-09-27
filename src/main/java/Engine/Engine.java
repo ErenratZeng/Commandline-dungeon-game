@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 
 public class Engine {
@@ -72,7 +71,7 @@ public class Engine {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public <T extends GameState<?>> T getState(Class<T> item) {
+    public <T extends GameState<?>>  T getState(Class<T> item) {
         GameState<?> state = gameStates.get(item.getName());
         if (item.isInstance(state)) return item.cast(state);
         return null;

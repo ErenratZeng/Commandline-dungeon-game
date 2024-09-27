@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Engine {
@@ -57,16 +58,18 @@ public class Engine {
         System.out.println(divider);
     }
 
-    public ArrayList<Character> getCharacter(String characterName) {
-        return characters.get(characterName);
+    public <T extends Character> ArrayList<T> getCharacter(Class<T> character) {
+        return characters.get(character.getName())
+                .stream()
+                .filter(character::isInstance)
+                .map(character::cast)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Character> getItems(String itemName) {
-        return characters.get(itemName);
-    }
-
-    public GameState<?> getState(String stateName) {
-        return gameStates.get(stateName);
+    public <T extends GameState<?>>  T getState(Class<T> item) {
+        GameState<?> state = gameStates.get(item.getName());
+        if (item.isInstance(state)) return item.cast(state);
+        return null;
     }
 
     public void printMap() {

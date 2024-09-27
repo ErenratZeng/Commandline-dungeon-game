@@ -13,7 +13,7 @@ public class Exit extends Transition {
     @Override
     public void applyTransition(Engine engine) {
         System.out.println("Yay, you found the exit !!");
-        GameWinState gameWinState = (GameWinState) engine.getState(GameWinState.class.getName());
+        GameWinState gameWinState = engine.getState(GameWinState.class);
         gameWinState.playerWin();
     }
 }

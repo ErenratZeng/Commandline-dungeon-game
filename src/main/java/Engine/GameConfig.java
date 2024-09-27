@@ -10,7 +10,10 @@ public class GameConfig {
     private ArrayList<String> states;
     private HashMap<Character, String> elements;
     private ArrayList<ControlConfig> controls;
+    private ArrayList<ElementConfig> block;
+    private HashMap<String, String> story;
     private HashMap<String, char[][]> mazes;
+
 
     private Character emptyElement;
 
@@ -32,6 +35,10 @@ public class GameConfig {
 
     public ArrayList<ControlConfig> getControls() {
         return controls;
+    }
+
+    public HashMap<String, String> getStory() {
+        return story;
     }
 
     public HashMap<String, char[][]> getMazes() {

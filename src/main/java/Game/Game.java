@@ -39,6 +39,8 @@ public class Game {
         switch (engine.inputController.getInput("Press y to enter and n to exit", "", responseControls)) {
             case "accept":
                 System.out.println("Starting game...");
+                engine.printTextBlock("beginning");
+                engine.inputController.getInput("Press y to continue...", "", responseControls);
                 System.out.println("Pls type w/a/s/d for moving");
                 gameLoop();
                 break;
@@ -91,7 +93,9 @@ public class Game {
             }
 
             if (gameWinState.getValue() == GameWinState.WinState.PLAYER_WIN) {
-                System.out.println("Yay you won the game ! Exiting game...");
+                System.out.println("Yay you won the game !");
+                engine.printTextBlock("ending");
+                System.out.println("Exiting game...");
                 break;
             }
             if (gameWinState.getValue() == GameWinState.WinState.PLAYER_LOSE) {

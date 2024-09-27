@@ -11,7 +11,7 @@ before_script:
 
 build_job:
   stage: build
-  tags: [comp2100]
+  tags: [ comp2100 ]
   image: gradle:latest
   script:
     - ./gradlew assemble
@@ -31,4 +31,15 @@ test_job1:
   artifacts:
     reports:
       junit: build/test-results/test/*.xml
+    expire_in: 1 hour
+
+player_move_test:
+  stage: test
+  tags: [comp2100]
+  image: gradle:latest
+  script:
+    - ./gradlew run -PmainClass=GameTester
+  artifacts:
+    paths:
+      - build/reports/tests/test
     expire_in: 1 hour

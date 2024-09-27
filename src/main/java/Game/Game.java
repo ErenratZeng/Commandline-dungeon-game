@@ -19,7 +19,7 @@ public class Game {
 
     static ArrayList<String> responseControls = new ArrayList<>(Arrays.asList("accept", "decline"));
     static ArrayList<String> movementControls = new ArrayList<>(Arrays.asList("move_up", "move_down", "move_left", "move_right"));
-    static ArrayList<String> actionControls = new ArrayList<>(Arrays.asList("inventory", "health", "map"));
+    static ArrayList<String> actionControls = new ArrayList<>(Arrays.asList("inventory", "health", "map", "help"));
     static ArrayList<String> exitControls = new ArrayList<>(List.of("quit"));
 
     static Engine engine;
@@ -41,7 +41,7 @@ public class Game {
                 System.out.println("Starting game...");
                 engine.printTextBlock("beginning");
                 engine.inputController.getInput("Press y to continue...", "", responseControls);
-                System.out.println("Pls type w/a/s/d for moving");
+                System.out.println("Pls type w/a/s/d for moving, type help for getting help.");
                 gameLoop();
                 break;
             case "decline":
@@ -79,6 +79,9 @@ public class Game {
                     break;
                 case "health":
                     playerHealth.print();
+                    break;
+                case "help":
+                    HelpMenu();
                     break;
                 case "map":
                     Engine.printHeaderBlock("Map Header");
@@ -124,6 +127,17 @@ public class Game {
             System.out.println(item.getName() + "has been applied !");
         }
         System.out.println("Exiting Inventory Menu !");
+    }
+
+    /**
+     * Displays the help menu, prints descriptions, and prompts the user for input.
+     *
+     * @author Xiaotian Cheng
+     */
+    public static void HelpMenu() {
+        Engine.printHeaderBlock("Help Menu");
+        engine.printDescription();
+        engine.inputController.getInput("Press y to continue...", "", responseControls);
     }
 
 

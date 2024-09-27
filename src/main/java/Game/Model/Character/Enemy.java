@@ -22,8 +22,8 @@ public class Enemy extends Character {
         return new int[]{this.x, this.y};
     }
     public boolean onInteract (Engine engine) {
-        PlayerHealth playerHealth = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
-        Inventory inventory = (Inventory) engine.getState(Inventory.class.getName());
+        PlayerHealth playerHealth = engine.getState(PlayerHealth.class);
+        Inventory inventory = engine.getState(Inventory.class);
         Sword sword = inventory.getItem(Sword.class);
 
         System.out.println("You're being attacked by an enemy !");

@@ -1,10 +1,10 @@
 package Engine.Model;
 
 public abstract class MazeElement {
-    protected  int x;
+    protected int x;
 
-    protected  int y;
-    protected  char symbol;
+    protected int y;
+    protected char symbol;
 
     protected String name;
 

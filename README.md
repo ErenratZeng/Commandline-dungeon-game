@@ -1,7 +1,10 @@
 # COMP2120 Assignment 3 - Dungeons Project
 
-#### Qiutong Zeng (u7724723), Christo Antony (u7701030), Xiaotian  Cheng (u7769920), Charles Dino (u7140320)
-
+#### Team Members
+- Qiutong Zeng (u7724723)
+- Christo Antony (u7701030)
+- Xiaotian  Cheng (u7769920)
+- Charles Dino (u7140320)
 ***
 
 ## Overview

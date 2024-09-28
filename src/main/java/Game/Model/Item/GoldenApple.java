@@ -11,6 +11,7 @@ import Game.Model.State.PlayerHealth;
  * Written by Christo Antony.
  */
 public class GoldenApple extends Item {
+    public static final int HealCapacity = 10;
 
     /**
      * Class constructor.
@@ -32,7 +33,7 @@ public class GoldenApple extends Item {
     public void effect(Engine engine) {
         PlayerHealth health = engine.getState(PlayerHealth.class);
         Inventory inventory = engine.getState(Inventory.class);
-        health.increaseBy(10);
+        health.increaseBy(HealCapacity);
         inventory.removeItem(this);
     }
 

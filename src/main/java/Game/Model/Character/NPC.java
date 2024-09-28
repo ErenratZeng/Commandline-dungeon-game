@@ -12,10 +12,10 @@ import Game.Model.State.PlayerHealth;
 public class NPC extends Character {
 
     /** The amount of health the NPC restores to the player. */
-    private static final int HEAL_AMOUNT = 10;
+    public static final int HEAL_AMOUNT = 10;
 
     /** The maximum health of the player. */
-    private static final int MAX_PLAYER_HEALTH = 100;
+    static final int MAX_PLAYER_HEALTH = 100;
 
     /**
      * Constructs a new NPC at the specified position.

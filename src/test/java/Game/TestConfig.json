@@ -14,6 +14,7 @@
   ],
   "elements": {
     "P": "Game.Model.Character.Player",
+    "N": "Game.Model.Character.NPC",
     "E": "Game.Model.Character.Enemy",
     "#": "Game.Model.Item.Rock",
     "X": "Game.Model.Transition.Exit"
@@ -21,7 +22,7 @@
   "emptyElement": ".",
   "mazes": {
     "testMaze": [
-      [".", ".", ".", "#", "#"],
+      [".", ".", "N", "#", "#"],
       ["P", ".", ".", "E", "#"],
       ["#", "#", "#", ".", "#"],
       ["#", ".", ".", ".", "#"],

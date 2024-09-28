@@ -8,7 +8,7 @@
 ***
 
 ## Overview
-The Dungeons project focuses on a simple text-based, rogue-like adventure game dependent on Gradle and JSON to generate an experience wherein the player navigates a series of mazes, collecting items, interacting with NPCs and battling enemies in order to reach the exit.
+The Dungeons project focuses on a simple text-based, rogue-like adventure game to generate an experience wherein the player navigates a series of mazes - collecting items, interacting with NPCs and battling enemies - in order to reach the exit.
 The premise follows an adventure into a forgotten temple in search of treasure, and the game features interactive entities and obstacles marked with special characters, three levels of varying sizes, and the capacity to view the map overview and the player's health and inventory.
 
 ## Installation & Setup

@@ -58,7 +58,7 @@ public class GameConfigTest {
                 config.getElements().values().stream().allMatch((classname) -> {
                     try {
                         Class<?> aClass = Class.forName(classname);
-                        if (!MazeElement.class.isAssignableFrom(aClass)) return  false;
+                        if (!MazeElement.class.isAssignableFrom(aClass)) return false;
                     } catch (ClassNotFoundException e) {
                         return false;
                     }
@@ -107,7 +107,7 @@ public class GameConfigTest {
      * Ensures that the characters in the maze correspond to the defined elements or the empty element.
      */
     @Test
-    void validMapCharacters () {
+    void validMapCharacters() {
         assertNotNull(config.getMazes());
         HashSet<Character> characters = new HashSet<>(config.getElements().keySet());
         characters.add(config.getEmptyElement());

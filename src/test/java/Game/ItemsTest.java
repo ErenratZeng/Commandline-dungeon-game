@@ -2,8 +2,6 @@ package Game;
 
 import Engine.Engine;
 import Engine.Model.Direction;
-import Game.Model.Character.Enemy;
-import Game.Model.Character.NPC;
 import Game.Model.Character.Player;
 import Game.Model.Item.GoldenApple;
 import Game.Model.Item.Sword;
@@ -15,13 +13,27 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Test suite for testing the item-related functionalities in the game,
+ * such as picking up items and using them (e.g., GoldenApple, Sword).
+ *
+ * @author Christo Joby Antony
+ */
 public class ItemsTest {
 
     private Engine engine;
     private Player player;
 
+    /**
+     * Sets up the test environment before each test is executed.
+     * Loads the game engine with the test configuration and initializes the player in the maze.
+     *
+     * @throws FileNotFoundException    if the configuration file is not found.
+     * @throws JsonSyntaxException      if the configuration file contains invalid JSON.
+     */
     @BeforeEach
     void setUp() throws FileNotFoundException, JsonSyntaxException {
         engine = new Engine("src/test/java/Game/TestConfig.json");
@@ -29,6 +41,10 @@ public class ItemsTest {
         player = engine.getCharacter(Player.class).get(0);
     }
 
+    /**
+     * Tests the functionality of picking up items in the game.
+     * Ensures that the player's inventory contains the expected items after moving to specific positions.
+     */
     @Test
     void PickUpItem() {
         Inventory inventory = engine.getState(Inventory.class);
@@ -40,6 +56,10 @@ public class ItemsTest {
         assertNotNull(inventory.getItem(GoldenApple.class), "The Inventory should contain a golden apple");
     }
 
+    /**
+     * Tests the functionality of using the GoldenApple item.
+     * Ensures that the player's health increases by the correct amount when the GoldenApple is used.
+     */
     @Test
     void useGoldenApple() {
         PlayerHealth health = engine.getState(PlayerHealth.class);
@@ -57,6 +77,10 @@ public class ItemsTest {
         );
     }
 
+    /**
+     * Tests the functionality of using the Sword item in an encounter.
+     * Ensures that the player's health does not decrease when encountering an enemy after acquiring the Sword.
+     */
     @Test
     void useSword() {
         PlayerHealth health = engine.getState(PlayerHealth.class);
@@ -73,6 +97,5 @@ public class ItemsTest {
                 "The player health shouldn't decrease on enemy encounter"
         );
     }
-
-
 }
+

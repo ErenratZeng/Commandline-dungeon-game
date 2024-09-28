@@ -7,7 +7,7 @@ import Game.Model.State.GameWinState;
 
 public class Exit extends Transition {
     public Exit(int x, int y) {
-        super(x, y,'Q', "Exit");
+        super(x, y, 'Q', "Exit");
     }
 
     @Override

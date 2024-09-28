@@ -46,9 +46,10 @@ public class Engine {
         if (onMazeChange != null) onMazeChange.run(); // run any callbacks the game has to do when the maze changes
     }
 
-    public void setOnMazeChange (Runnable runnable) {
+    public void setOnMazeChange(Runnable runnable) {
         this.onMazeChange = runnable;
     }
+
     public void printTitleScreen() {
         String title = "Welcome to " + config.getTitle();
         printHeaderBlock(title);
@@ -70,7 +71,7 @@ public class Engine {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public <T extends GameState<?>>  T getState(Class<T> item) {
+    public <T extends GameState<?>> T getState(Class<T> item) {
         GameState<?> state = gameStates.get(item.getName());
         if (item.isInstance(state)) return item.cast(state);
         return null;
@@ -143,11 +144,11 @@ public class Engine {
         int newY = newCoords[1];
 
 
-        if (newX < 0 || newX >= currentMaze.getRows() || newY < 0 || newY >= currentMaze.getCols()) {
+        if (newX < 0 || newX >= currentMaze.getCols() || newY < 0 || newY >= currentMaze.getRows()) {
             System.out.println("Move out of bounds!");
             return;
         }
-        MazeElement elementNewXY = currentMaze.getLayout()[newX][newY];
+        MazeElement elementNewXY = currentMaze.getElement(newX, newY);
         if (elementNewXY instanceof Transition transition) {
             transition.applyTransition(this);
             return;
@@ -167,10 +168,11 @@ public class Engine {
             throw new IllegalStateException("Unexpected value: " + elementNewXY);
         }
 
-        currentMaze.getLayout()[character.getX()][character.getY()] = null;
+        currentMaze.setElementAt(character.getX(), character.getY(), null);
         character.setPosition(newX, newY);
+        currentMaze.setElementAt(newX, newY, character);
         System.out.println(character.getName() + " moves in the direction " + direction.name());
-        currentMaze.getLayout()[newX][newY] = character;
+
     }
 
 
@@ -204,9 +206,9 @@ public class Engine {
         // add the characters and the items to a hashmap for quick lookup
         characters = new HashMap<>();
         items = new HashMap<>();
-        MazeElement[][] layout = currentMaze.getLayout();
-        for (MazeElement[] es : layout) {
-            for (MazeElement e : es) {
+        for (int i =0; i <currentMaze.getRows(); i++) {
+            for (int j=0; j< currentMaze.getCols(); j++) {
+                MazeElement e = currentMaze.getElement(j, i);
                 String classname = null;
                 if (e != null) classname = e.getClass().getName();
                 if (e instanceof Item item) {

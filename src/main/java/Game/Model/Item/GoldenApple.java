@@ -6,6 +6,7 @@ import Game.Model.State.Inventory;
 import Game.Model.State.PlayerHealth;
 
 public class GoldenApple extends Item {
+    public static final int HealCapacity = 10;
     public GoldenApple(int x, int y) {
         super(x, y, 'G', "Golden Apple");
         this.name = "GoldenApple";
@@ -17,7 +18,7 @@ public class GoldenApple extends Item {
         //Heal player for 1 health
         PlayerHealth health = engine.getState(PlayerHealth.class);
         Inventory inventory = engine.getState(Inventory.class);
-        health.increaseBy(10);
+        health.increaseBy(HealCapacity);
         inventory.removeItem(this);
     }
 

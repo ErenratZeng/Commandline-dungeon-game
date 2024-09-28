@@ -44,13 +44,13 @@ class EngineTest {
 
     @Test
     void validateItems() {
-        assertEquals(engine.items.size(), 1);
+        assertEquals(3, engine.items.size());
         ArrayList<Rock> rocks = engine.items.get(Rock.class.getName())
                 .stream()
                 .filter(Rock.class::isInstance)
                 .map(Rock.class::cast)
                 .collect(Collectors.toCollection(ArrayList::new));
-        assertEquals(rocks.size(), 13);
+        assertEquals(13, rocks.size());
     }
 
     @Test

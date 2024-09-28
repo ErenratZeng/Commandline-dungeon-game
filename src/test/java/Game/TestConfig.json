@@ -17,12 +17,14 @@
     "N": "Game.Model.Character.NPC",
     "E": "Game.Model.Character.Enemy",
     "#": "Game.Model.Item.Rock",
-    "X": "Game.Model.Transition.Exit"
+    "X": "Game.Model.Transition.Exit",
+    "G": "Game.Model.Item.GoldenApple",
+    "S": "Game.Model.Item.Sword"
   },
   "emptyElement": ".",
   "mazes": {
     "testMaze": [
-      [".", ".", "N", "#", "#"],
+      ["G", "S", "N", "#", "#"],
       ["P", ".", ".", "E", "#"],
       ["#", "#", "#", ".", "#"],
       ["#", ".", ".", ".", "#"],

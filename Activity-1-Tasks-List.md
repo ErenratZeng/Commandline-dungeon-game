@@ -9,7 +9,7 @@
 
 ## Engine Layer
 - Implement the interface of the player's inventory.
-- Implement the Conform Box when using items.
+- Implement a Confirmation Box when using items.
 - Implement the display with NPC dialogue.
 - Implement the enemy's data bar display.
 - Implement real-time updates of player position.

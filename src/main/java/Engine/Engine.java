@@ -71,7 +71,7 @@ public class Engine {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public <T extends GameState<?>>  T getState(Class<T> item) {
+    public <T extends GameState<?>> T getState(Class<T> item) {
         GameState<?> state = gameStates.get(item.getName());
         if (item.isInstance(state)) return item.cast(state);
         return null;

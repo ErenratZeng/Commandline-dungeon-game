@@ -1,5 +1,19 @@
 plugins {
     id 'java'
+    id 'application'
+}
+
+application {
+    mainClassName = 'src/main/java/Game/Game.java'
+}
+
+jar{
+    manifest{
+        attributes(
+                'Main-Class': 'Game.Game',
+                'Class-Path': 'json-20231013.jar gson-2.11.0.jar error_prone_annotations-2.27.0.jar'
+        )
+    }
 }
 
 repositories {

@@ -2,6 +2,7 @@ package Engine;
 
 import Engine.Model.*;
 import Game.Model.Character.Enemy;
+import Game.Model.Character.NPC;
 import Game.Model.Character.Player;
 import Game.Model.Item.Rock;
 import Game.Model.State.GameLevel;
@@ -24,20 +25,21 @@ class EngineTest {
 
     @BeforeEach
     void setUp() throws FileNotFoundException, JsonSyntaxException {
-        engine = new Engine("src/test/java/Engine/TestConfig.json");
+        engine = new Engine("src/test/java/Game/TestConfig.json");
         engine.setCurrentMaze("testMaze");
     }
 
     @Test
     void loadConfig() {
-        assertDoesNotThrow(() -> new Engine("src/test/java/Engine/TestConfig.json"));
+        assertDoesNotThrow(() -> new Engine("src/test/java/Game/TestConfig.json"));
     }
 
     @Test
     void validateCharacter() {
-        assertEquals(engine.characters.size(), 2);
+        assertEquals(engine.characters.size(), 3);
         assertEquals(engine.getCharacter(Player.class).size(), 1);
         assertEquals(engine.getCharacter(Enemy.class).size(), 1);
+        assertEquals(engine.getCharacter(NPC.class).size(), 1);
     }
 
     @Test

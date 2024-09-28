@@ -1,13 +1,6 @@
 package Engine;
 
 import Engine.Model.MazeElement;
-import Engine.Model.Transition;
-import Game.Model.Character.Enemy;
-import Game.Model.Character.Player;
-import Game.Model.Item.Rock;
-import Game.Model.State.GameLevel;
-import Game.Model.State.Inventory;
-import Game.Model.State.PlayerHealth;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,14 +8,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class GameConfigTest {
     private Gson gson;

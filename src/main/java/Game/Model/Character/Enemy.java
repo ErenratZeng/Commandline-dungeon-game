@@ -10,10 +10,10 @@ import Game.Model.State.PlayerHealth;
 import java.util.Random;
 
 public class Enemy extends Character {
-    Integer health;
+    Integer damage;
     public Enemy(int x, int y) {
         super(x, y, 'E', "Enemy");
-        this.health = 4;
+        this.damage = setEnemyHealth();
     }
 
     @Override
@@ -34,8 +34,8 @@ public class Enemy extends Character {
             inventory.removeItem(sword);
             return  true;
         }
-        if (playerHealth.getValue() > this.health) {
-            playerHealth.reduceBy(this.health);
+        if (playerHealth.getValue() > this.damage) {
+            playerHealth.reduceBy(this.damage);
             System.out.println("Phew! you survived your remaining health is: "+ playerHealth.getValue());
             return true;
         } else {
@@ -43,6 +43,10 @@ public class Enemy extends Character {
             playerHealth.setValue(0);
             return false;
         }
+    }
+
+    public Integer getDamage() {
+        return damage;
     }
 
     public int setEnemyHealth(){

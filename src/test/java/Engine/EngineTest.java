@@ -2,6 +2,7 @@ package Engine;
 
 import Engine.Model.*;
 import Game.Model.Character.Enemy;
+import Game.Model.Character.NPC;
 import Game.Model.Character.Player;
 import Game.Model.Item.Rock;
 import Game.Model.State.GameLevel;

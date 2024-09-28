@@ -136,7 +136,7 @@ public class Game {
      */
     public static void HelpMenu() {
         Engine.printHeaderBlock("Help Menu");
-        engine.printDescription();
+        engine.printHelpMenu();
         engine.inputController.getInput("Press y to continue...", "", responseControls);
     }
 

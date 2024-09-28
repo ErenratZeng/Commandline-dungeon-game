@@ -118,7 +118,7 @@ public class Engine {
      *
      * @author Xiaotian Cheng
      */
-    public void printDescription() {
+    public void printHelpMenu() {
         System.out.println("Controls in the Game:");
         for (GameConfig.ControlConfig control : config.getControls()) {
             if(control.getDescription() != null){

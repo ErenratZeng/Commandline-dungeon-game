@@ -97,6 +97,5 @@ public class ItemsTest {
                 "The player health shouldn't decrease on enemy encounter"
         );
     }
-
-
 }
+

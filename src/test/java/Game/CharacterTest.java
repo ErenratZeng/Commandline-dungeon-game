@@ -53,10 +53,15 @@ public class CharacterTest {
         engine.moveCharacter(player, Direction.RIGHT);
         engine.moveCharacter(player, Direction.RIGHT);
         int finalHealth = health.getValue();
-        assertEquals( damage, initialHealth - finalHealth, "The player health should decrease by enemy damage %d".formatted(damage));
+        assertEquals(damage, initialHealth - finalHealth, "The player health should decrease by enemy damage %d".formatted(damage));
     }
+
+    /**
+     * Tests the interaction between the player and an NPC.
+     * Ensures that the player's health increases by the defined heal amount after encountering the NPC.
+     */
     @Test
-    void NPCInteraction () {
+    void NPCInteraction() {
         PlayerHealth health = engine.getState(PlayerHealth.class);
         int heal = NPC.HEAL_AMOUNT;
         int initialHealth = 50;

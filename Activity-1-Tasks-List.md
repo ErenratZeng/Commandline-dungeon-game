@@ -28,6 +28,7 @@
 
 ## Other Game Features
 - Iterate a better graphical interface with game engine.
+- Implement save and load game functionalities.
 - Implement the quest system model given by NPCs, including objectives, progress and rewards.
 - Implement various status systems (e.g., buffs and debuffs, poisoned, weakened).
 - Design multiple levels of the map.

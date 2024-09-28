@@ -60,4 +60,5 @@ public class GoldenApple extends Item {
     public boolean isBlocking() {
         return super.isBlocking();
     }
+
 }

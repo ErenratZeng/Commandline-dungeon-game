@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
 /**
  * A small class that is concerned with the current level of a maze.
  *
- * Written by Christo Antony.
+ * @author Christo Antony.
  */
 public class GameLevel extends GameState<Integer> {
 

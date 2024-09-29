@@ -12,7 +12,8 @@ import java.util.Random;
 /**
  * This class governs enemy behaviour and interaction.
  *
- * Written by Christo Antony and Qiutong Zeng.
+ * @author Christo Antony
+ * @author Qiutong Zeng
  */
 public class Enemy extends Character {
     Integer damage;

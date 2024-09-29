@@ -7,7 +7,7 @@ import Engine.Model.Direction;
 /**
  * The class for the player which concerns their functionality in the game.
  *
- * Written by Christo Antony.
+ * @author Christo Antony.
  */
 public class Player extends Character {
 

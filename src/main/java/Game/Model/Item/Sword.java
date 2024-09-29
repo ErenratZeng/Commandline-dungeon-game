@@ -8,7 +8,7 @@ import Game.Model.State.Inventory;
  * An Item class which deals with interactions with enemies should instances
  * exist in the player's inventory.
  *
- * Written by Christo Antony.
+ * @author Christo Antony.
  */
 public class Sword extends Item {
 

@@ -9,7 +9,7 @@ import Game.Model.State.PlayerHealth;
  * Represents a Non-Player Character (NPC) in the game.
  * NPCs are stationary characters that can heal the player when interacted with.
  *
- * Written by Xiaotian Cheng.
+ * @author Xiaotian Cheng.
  */
 public class NPC extends Character {
 

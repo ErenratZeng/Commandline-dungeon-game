@@ -16,17 +16,15 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This buildable class handles much of the game's interface and links
- * together code integral to running the game.
+ * The main class for the Game. It initializes the game engine, handles user input, and controls the game flow.
+ * The player interacts with the game by moving, using the inventory, and checking health, among other actions.
  *
- * Written by Christo Antony, Qiutong Zeng, Xiaotian Cheng.
+ * @author Christo Antony
+ * @author Qiutong Zeng
+ * @author Xiaotian Cheng
  */
 public class Game {
 
-    /**
-     * The sets of important controls initialised as strings for later reading
-     * in other functions and such.
-     */
     static ArrayList<String> responseControls = new ArrayList<>(Arrays.asList("accept", "decline"));
     static ArrayList<String> movementControls = new ArrayList<>(Arrays.asList("move_up", "move_down", "move_left", "move_right"));
     static ArrayList<String> actionControls = new ArrayList<>(Arrays.asList("inventory", "health", "map", "help"));
@@ -36,15 +34,18 @@ public class Game {
     static InputController inputController;
     static Player player;
 
+    /**
+     * The main entry point for the game.
+     * Initializes the game engine, sets up the player, and handles the initial input to start or exit the game.
+     *
+     * @param args command-line arguments (not used in this game).
+     */
     public static void main(String[] args) {
-        // Read or throw an error depending on the existence of the JSON file.
         try {
             engine = new Engine("src/main/java/Game/GameConfig.json");
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException(e);
         }
-
-        // Initialise the settings and either begin the game or terminate.
         engine.setCurrentMaze("level_1");
         inputController = engine.inputController;
         engine.printTitleScreen();
@@ -58,17 +59,17 @@ public class Game {
                 gameLoop();
                 break;
             case "decline":
-                System.out.println("Closing the game...");
+                System.out.println("Thank you for playing !");
                 break;
             default:
-                System.out.println("Something went wrong! Terminating...");
+                System.out.println("Should not happen !");
                 break;
         }
     }
 
     /**
-     * This method is set to constantly run and handle player input as well as
-     * terminating the game once the player wins or loses.
+     * The main game loop that continuously listens for user input and updates the game state accordingly.
+     * It handles movement, inventory management, checking player health, displaying the map, and exiting the game.
      */
     public static void gameLoop() {
         engine.setOnMazeChange(() -> player = engine.getCharacter(Player.class).get(0));
@@ -113,13 +114,13 @@ public class Game {
             }
 
             if (gameWinState.getValue() == GameWinState.WinState.PLAYER_WIN) {
-                System.out.println("You won!");
+                System.out.println("Yay you won the game !");
                 engine.printTextBlock("ending");
                 System.out.println("Exiting game...");
                 break;
             }
             if (gameWinState.getValue() == GameWinState.WinState.PLAYER_LOSE) {
-                System.out.println("The game is lost. Exiting game...");
+                System.out.println("Oops you lost the Game ! Exiting game...");
                 break;
             }
 
@@ -127,34 +128,33 @@ public class Game {
     }
 
     /**
-     * Handles player interaction with the inventory system.
+     * Displays the inventory menu, allowing the player to use items from their inventory.
+     * The inventory is printed, and the player can choose an item to apply its effect.
      *
-     * @param inventory The current inventory.
+     * @param inventory the player's inventory containing items to be used.
      */
     public static void InventoryMenu(Inventory inventory) {
         Engine.printHeaderBlock("Inventory");
         while (true) {
             int inventorySize = inventory.getValue().size();
             if (inventorySize == 0) {
-                System.out.println("Your inventory is empty.");
+                System.out.println("Oops the inventory is empty !");
                 break;
             }
             inventory.print();
-            int response = inputController.getIntegerInput(0, inventory.getValue().size(), "Enter an item to use (0 to exit).", "Inventory");
+            int response = inputController.getIntegerInput(0, inventory.getValue().size(), "Enter an item to use (0 to exit)", "Inventory");
             if (response == 0) {
                 break;
             }
             Item item = inventory.getItem(response - 1);
             item.effect(engine);
-            System.out.println(item.getName() + "has been applied!");
+            System.out.println(item.getName() + "has been applied !");
         }
-        System.out.println("Returning to map display...");
+        System.out.println("Exiting Inventory Menu !");
     }
 
     /**
      * Displays the help menu, prints descriptions, and prompts the user for input.
-     *
-     * @author Xiaotian Cheng
      */
     public static void HelpMenu() {
         Engine.printHeaderBlock("Help Menu");

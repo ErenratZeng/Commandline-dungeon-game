@@ -8,7 +8,8 @@ import java.util.*;
  * This class is specifically designed to read and take in inputs made
  * by the player.
  *
- * Written by Christo Antony and Qiutong Zeng.
+ * @author Christo Antony
+ * @author Qiutong Zeng
  */
 public class InputController {
     private final HashMap<String, String> keyMap;

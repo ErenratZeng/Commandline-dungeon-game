@@ -6,7 +6,7 @@ import Engine.Model.GameState;
  * The class governs the player's health and all code that alters it through
  * various interactions during gameplay.
  *
- * Written in full by Christo Antony.
+ * @author Christo Antony.
  */
 public class PlayerHealth extends GameState<Integer> {
 

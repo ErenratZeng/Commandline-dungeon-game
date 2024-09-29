@@ -8,7 +8,7 @@ import Game.Model.State.GameLevel;
  * The class deals with behaviour of the staircase "tile" that appears
  * at each level of every maze.
  *
- * Written in full by Christo Antony.
+ * @author Christo Antony.
  */
 public class Staircase extends Transition {
 

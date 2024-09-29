@@ -7,7 +7,7 @@ import Game.Game;
  * A simple class that determines whether a playthrough is ongoing, won or
  * lost.
  *
- * Written by Christo Antony.
+ * @author Christo Antony.
  */
 public class GameWinState extends GameState<GameWinState.WinState> {
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * This class implements the behaviour of the inventory system.
  *
- * Fully written by Christo Antony.
+ * @author Christo Antony.
  */
 public class Inventory extends GameState<ArrayList<Item>> {
 

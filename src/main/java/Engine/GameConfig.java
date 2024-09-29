@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * This class defines various getter and setter methods,
+ * as well as Control and Element Config classes for use with
+ * the JSON file and the automatic game tester.
+ *
+ * Written by Christo Antony.
+ */
 public class GameConfig {
     private String title;
     private String title_art;
@@ -49,6 +56,10 @@ public class GameConfig {
         return emptyElement;
     }
 
+    /**
+     * This class is specifically concerned with handling controls in relation
+     * to the game tester.
+     */
     public static class ControlConfig {
 
         public String name;

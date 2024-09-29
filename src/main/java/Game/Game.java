@@ -59,6 +59,10 @@ public class Game {
         GameWinState gameWinState = engine.getState(GameWinState.class);
         PlayerHealth playerHealth = engine.getState(PlayerHealth.class);
         while (true) {
+            if (gameWinState.getValue() == GameWinState.WinState.PLAYER_LOSE || playerHealth.getValue() == 0){
+                System.out.println("Oops! You've lost your path! You feel tired and fall into a deep slumber....");
+                break;
+            }
             engine.printMap();
             String command = inputController.getInput(null, "dungeon", movementControls, actionControls, exitControls);
             switch (command) {

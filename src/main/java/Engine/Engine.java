@@ -139,7 +139,7 @@ public class Engine {
             Matcher matcher = pattern.matcher(fullClassName);
 
             if (matcher.find()) {
-                String shortName = matcher.group(1);  // 提取最后一部分，例如 "Exit"
+                String shortName = matcher.group(1);
                 System.out.println("\"" + key + "\" : " + shortName);
             }
         }

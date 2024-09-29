@@ -52,6 +52,7 @@ public class GameConfig {
     public static class ControlConfig {
 
         public String name;
+        public String description;
         Set<String> input;
 
         public Set<String> getInputKeys() {
@@ -61,6 +62,8 @@ public class GameConfig {
         public String getName() {
             return name;
         }
+
+        public String getDescription() { return description; }
     }
 
     public static class ElementConfig {

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Engine {
@@ -110,6 +112,37 @@ public class Engine {
         }
         System.out.println(divider);
 
+    }
+
+    /**
+     * Prints control descriptions and maze legends from the game configuration.
+     * <p>
+     * The method prints available controls with their input keys and descriptions,
+     * and the legend elements in the maze with their short class names.
+     *
+     * @author Xiaotian Cheng
+     */
+    public void printHelpMenu() {
+        System.out.println("Controls in the Game:");
+        for (GameConfig.ControlConfig control : config.getControls()) {
+            if(control.getDescription() != null){
+                String inputs = String.join(", ", control.getInputKeys());
+                System.out.println(inputs + " = " + control.getDescription());
+            }
+        }
+        HashMap<java.lang.Character, String> elements = config.getElements();
+        Pattern pattern = Pattern.compile("\\.(\\w+)$");
+
+        System.out.println("\nLegends in the Maze:");
+        for (java.lang.Character key : elements.keySet()) {
+            String fullClassName = elements.get(key);
+            Matcher matcher = pattern.matcher(fullClassName);
+
+            if (matcher.find()) {
+                String shortName = matcher.group(1);  // 提取最后一部分，例如 "Exit"
+                System.out.println("\"" + key + "\" : " + shortName);
+            }
+        }
     }
 
     // Method to justify a single line of words to the given line width

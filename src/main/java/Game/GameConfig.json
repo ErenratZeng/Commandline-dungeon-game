@@ -4,19 +4,23 @@
   "controls" : [
     {
       "name" : "move_up",
-      "input": ["up", "north", "w"]
+      "input": ["up", "north", "w"],
+      "description": "Let player move upwards."
     },
     {
       "name" : "move_down",
-      "input": ["down", "south", "s"]
+      "input": ["down", "south", "s"],
+      "description": "Let player move downwards."
     },
     {
       "name" : "move_left",
-      "input": ["left", "east",  "a"]
+      "input": ["left", "east",  "a"],
+      "description": "Let player move to the left."
     },
     {
       "name" : "move_right",
-      "input": ["right", "west", "d"]
+      "input": ["right", "west", "d"],
+      "description": "Let player move to the right."
     },
     {
       "name" : "accept",
@@ -28,19 +32,28 @@
     },
     {
       "name" : "inventory",
-      "input" : ["i", "inventory"]
+      "input" : ["i", "inventory"],
+      "description": "Open the inventory system."
     },
     {
       "name" : "health",
-      "input": ["h", "health"]
+      "input": ["h", "health"],
+      "description": "Check player's health."
+    },
+    {
+      "name": "help",
+      "input": ["help"],
+      "description": "Show help menu."
     },
     {
       "name" : "map",
-      "input" : ["m", "map"]
+      "input" : ["m", "map"],
+      "description": "Print map."
     },
     {
       "name" : "quit",
-      "input" : ["q", "exit"]
+      "input" : ["q", "exit"],
+      "description": "Exit the game."
     }
   ],
   "states" : [

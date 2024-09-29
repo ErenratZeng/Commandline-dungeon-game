@@ -18,7 +18,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * This class handles the code for the game engine. Among what it is
+ * concerned with are the rendering of the map and parsing user inputs.
+ *
+ * Written by Christo Antony, Qiutong Zeng, Xiaotian Cheng.
+ */
 public class Engine {
     public Maze currentMaze;
     public InputController inputController;
@@ -31,13 +36,22 @@ public class Engine {
 
     Runnable onMazeChange;
 
+    /**
+     * Class constructor that converts JSON via GSON and initialises
+     * the map and game states.
+     *
+     * @param ConfigFile The config. JSON file for printing the game on the
+     *                   terminal.
+     * @throws FileNotFoundException
+     * @throws JsonSyntaxException
+     */
     public Engine(String ConfigFile) throws FileNotFoundException, JsonSyntaxException {
         Gson gson = new Gson();
         scanner = new Scanner(System.in);
         config = gson.fromJson(new FileReader(ConfigFile), GameConfig.class);
         inputController = new InputController(config, scanner);
-        initializeMazeHashMap();  // set up the maze map
-        initializeGameState();    // set up the game states
+        initializeMazeHashMap();
+        initializeGameState();
     }
 
     public void setCurrentMaze(String maze_name) {

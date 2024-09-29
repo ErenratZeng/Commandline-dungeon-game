@@ -15,7 +15,7 @@ public class PlayerHealth extends GameState<Integer> {
      * startup of a new playthrough.
      */
     public PlayerHealth() {
-        super(100);
+        super(12);
     }
 
     /**

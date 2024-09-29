@@ -4,7 +4,6 @@ import Engine.Controller.InputController;
 import Engine.Engine;
 import Engine.Model.Direction;
 import Engine.Model.Item;
-import Game.Model.State.GameLevel;
 import Game.Model.State.GameWinState;
 import Game.Model.State.Inventory;
 import Game.Model.Character.Player;
@@ -101,11 +100,10 @@ public class Game {
                 System.out.println("Exiting game...");
                 break;
             }
-            if (gameWinState.getValue() == GameWinState.WinState.PLAYER_LOSE) {
-                System.out.println("Oops you lost the Game ! Exiting game...");
+            if (gameWinState.getValue() == GameWinState.WinState.PLAYER_LOSE || playerHealth.getValue() == 0) {
+                System.out.println("Exiting game...");
                 break;
             }
-
         }
     }
 

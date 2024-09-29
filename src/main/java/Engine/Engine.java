@@ -139,7 +139,7 @@ public class Engine {
             Matcher matcher = pattern.matcher(fullClassName);
 
             if (matcher.find()) {
-                String shortName = matcher.group(1);  // 提取最后一部分，例如 "Exit"
+                String shortName = matcher.group(1);
                 System.out.println("\"" + key + "\" : " + shortName);
             }
         }
@@ -187,10 +187,7 @@ public class Engine {
             return;
         } else if (elementNewXY instanceof Character tileCharacter) {
             boolean canMoveInto = tileCharacter.onInteract(this);
-            if (!canMoveInto) {
-                System.out.println("Move blocked by " + character.getName());
-                return;
-            }
+            if (!canMoveInto) return;
         } else if (elementNewXY instanceof Item item) {
             item.onInteract(this);
             if (item.isBlocking()) {

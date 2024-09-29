@@ -11,7 +11,7 @@ import Game.Model.State.PlayerHealth;
  * Written by Christo Antony.
  */
 public class GoldenApple extends Item {
-    public static final int HealCapacity = 10;
+    public static final int HealCapacity = 2;
 
     /**
      * Class constructor.
@@ -25,7 +25,7 @@ public class GoldenApple extends Item {
     }
 
     /**
-     * Applies the effect of the item - heal the player by 10 points.
+     * Applies the effect of the item - heal the player by 2 points.
      *
      * @param engine The config. JSON file to print the game from.
      */
@@ -45,7 +45,7 @@ public class GoldenApple extends Item {
      */
     @Override
     public void onInteract(Engine engine) {
-        System.out.println("Consider the doctor's advice with this golden apple. (Re)gain +5 HP.");
+        System.out.println("Consider the doctor's advice with this golden apple. (Re)gain +2 HP.");
         System.out.println("The apple is now in your inventory and awaiting consumption.");
         Inventory inventory = engine.getState(Inventory.class);
         inventory.addItem(this);

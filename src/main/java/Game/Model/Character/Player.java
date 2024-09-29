@@ -22,10 +22,10 @@ public class Player extends Character {
     }
 
     /**
-     * Update the coordinates of the player's model based on player input.
      *
-     * @param direction Enum values representing movement.
-     * @return A list of the new coordinates.
+     *
+     * @param direction
+     * @return
      */
     @Override
     public int[] moveCharacter(Direction direction){

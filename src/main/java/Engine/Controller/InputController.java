@@ -4,10 +4,22 @@ import Engine.GameConfig;
 
 import java.util.*;
 
+/**
+ * This class is specifically designed to read and take in inputs made
+ * by the player.
+ *
+ * Written by Christo Antony and Qiutong Zeng.
+ */
 public class InputController {
     private final HashMap<String, String> keyMap;
     private final Scanner scanner;
 
+    /**
+     * Class constructor.
+     *
+     * @param config The JSON file.
+     * @param scanner Reader for terminal inputs.
+     */
     public InputController(GameConfig config, Scanner scanner) {
         this.scanner = scanner;
         this.keyMap = new HashMap<>();
@@ -17,15 +29,18 @@ public class InputController {
                 keyMap.put(key, controlName);
             }
         }
-
     }
 
     @SafeVarargs
     public final String getInput(String prompt, String context, ArrayList<String>... inputs) {
         List<String> validInputs = Arrays.stream(inputs)
                 .flatMap(Collection::stream).toList();
-        if (prompt != null) System.out.println(prompt);
-        if (context != null) System.out.print(context + "> ");
+        if (prompt != null) {
+            System.out.println(prompt);
+        }
+        if (context != null) {
+            System.out.print(context + "> ");
+        }
         else System.out.print("> ");
 
         while (true) {
@@ -37,7 +52,6 @@ public class InputController {
                     System.out.println("The command entered is invalid, try again!");
                     continue;
                 }
-
                 if (!validInputs.contains(controlName)) {
                     System.out.println("The command is not valid in this context, try again!");
                     continue;
@@ -64,6 +78,4 @@ public class InputController {
             System.out.format("Enter a integer between %d - %d ", min, max);
         }
     }
-
-
 }

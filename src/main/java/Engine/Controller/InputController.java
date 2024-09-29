@@ -3,11 +3,10 @@ package Engine.Controller;
 import Engine.GameConfig;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class InputController {
-    private HashMap<String, String> keyMap;
-    private Scanner scanner;
+    private final HashMap<String, String> keyMap;
+    private final Scanner scanner;
 
     public InputController(GameConfig config, Scanner scanner) {
         this.scanner = scanner;
@@ -25,21 +24,26 @@ public class InputController {
     public final String getInput(String prompt, String context, ArrayList<String>... inputs) {
         List<String> validInputs = Arrays.stream(inputs)
                 .flatMap(Collection::stream).toList();
+        if (prompt != null) System.out.println(prompt);
+        if (context != null) System.out.print(context + "> ");
+        else System.out.print("> ");
+
         while (true) {
-            if (prompt != null) System.out.println(prompt);
-            if (context != null) System.out.print(context + "> ");
-            else System.out.print("> ");
-            String input = scanner.nextLine();
-            String controlName = keyMap.get(input.trim().toLowerCase());
-            if (controlName == null) {
-                System.out.println("The command entered is invalid, try again !");
-                continue;
+            if (scanner.hasNextLine()) {
+                String input = scanner.nextLine();
+                String controlName = keyMap.get(input.trim().toLowerCase());
+
+                if (controlName == null) {
+                    System.out.println("The command entered is invalid, try again!");
+                    continue;
+                }
+
+                if (!validInputs.contains(controlName)) {
+                    System.out.println("The command is not valid in this context, try again!");
+                    continue;
+                }
+                return controlName;
             }
-            if (!validInputs.contains(controlName)) {
-                System.out.println("The command is not valid in this context, try again !");
-                continue;
-            }
-            return controlName;
         }
     }
 

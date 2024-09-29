@@ -37,7 +37,7 @@ public class NPC extends Character {
      */
     @Override
     public int[] moveCharacter(Direction direction) {
-        System.out.println("NPCs don't move!");
+        System.out.println("NPCs much prefer to remain stationary, thank you very much.");
         return new int[]{this.x, this.y};
     }
 
@@ -59,11 +59,11 @@ public class NPC extends Character {
         playerHealth.increaseBy(HEAL_AMOUNT);
 
         if (newHealth == MAX_PLAYER_HEALTH) {
-            System.out.println("You've reached maximum health!");
+            System.out.println("Maximum health reached!");
         }
 
-        System.out.println("The NPC healed you for " + actualHealAmount + " health points!");
-        System.out.println("Your current health is: " + newHealth);
+        System.out.println("The NPC healed you for " + actualHealAmount + " HP!");
+        System.out.println("Your current HP is: " + newHealth);
 
         return true;
     }

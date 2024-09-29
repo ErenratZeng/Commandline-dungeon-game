@@ -1,19 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-}
-
-application {
-    mainClassName = 'src/main/java/Game/Game.java'
-}
-
-jar{
-    manifest{
-        attributes(
-                'Main-Class': 'Game.Game',
-                'Class-Path': 'json-20231013.jar gson-2.11.0.jar error_prone_annotations-2.27.0.jar'
-        )
-    }
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
 repositories {
@@ -25,6 +13,10 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
     implementation 'org.json:json:20231013'
     implementation 'com.google.code.gson:gson:2.11.0'
+}
+
+application {
+    mainClass = 'Game.Game'
 }
 
 test {

@@ -22,15 +22,14 @@ build_job:
 
 player_move_test:
   stage: test
-  tags: [ comp2100 ]
+  tags: [comp2100]
   image: gradle:latest
   script:
-    - ./gradlew clean build
-    - ./gradlew runTest
+    - ./run_game.sh
 
 test_job1:
   stage: test
-  tags: [ comp2100 ]
+  tags: [comp2100]
   image: gradle:latest
   script:
     - echo "This job tests something simple"

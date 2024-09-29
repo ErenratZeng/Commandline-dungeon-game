@@ -8,7 +8,7 @@ import Game.Model.State.Inventory;
  * An Item class which deals with interactions with enemies should instances
  * exist in the player's inventory.
  *
- * Written by Christo Antony.
+ * @author Christo Antony.
  */
 public class Sword extends Item {
 
@@ -33,7 +33,7 @@ public class Sword extends Item {
     @Override
     public void effect(Engine engine) {
         System.out.println("Frail by age but nevertheless guarded by mystical energies of its previous owner," +
-                           " this sword will protect you against the next enemy attack.");
+                " this sword will protect you against the next enemy attack.");
     }
 
     /**

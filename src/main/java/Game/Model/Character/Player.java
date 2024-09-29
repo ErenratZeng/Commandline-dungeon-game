@@ -7,7 +7,7 @@ import Engine.Model.Direction;
 /**
  * The class for the player which concerns their functionality in the game.
  *
- * Written by Christo Antony.
+ * @author Christo Antony.
  */
 public class Player extends Character {
 
@@ -59,10 +59,10 @@ public class Player extends Character {
     @Override
     public boolean onInteract(Engine engine) {
         System.err.println("What is this? Faster than you could recognise, malice of a higher power had" +
-                           " suddenly made itself known to you. Quick in all its actions, it pushes against" +
-                           " and through your psyche to bring into being a fleeting shadow before you." +
-                           " A shadow of you, unmasked to reveal your evil. A message, disguised as a premonition;" +
-                           " be wary of this world.");
+                " suddenly made itself known to you. Quick in all its actions, it pushes against" +
+                " and through your psyche to bring into being a fleeting shadow before you." +
+                " A shadow of you, unmasked to reveal your evil. A message, disguised as a premonition;" +
+                " be wary of this world.");
         System.err.println("As it vanishes in a haze of black, you take its warning to heart before proceeding again.");
         return false;
     }

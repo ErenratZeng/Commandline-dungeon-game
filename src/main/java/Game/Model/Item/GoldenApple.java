@@ -8,7 +8,7 @@ import Game.Model.State.PlayerHealth;
 /**
  * A class which governs the golden apple item functionality.
  *
- * Written by Christo Antony.
+ * @author Christo Antony.
  */
 public class GoldenApple extends Item {
     public static final int HealCapacity = 2;

@@ -6,7 +6,7 @@ import Engine.Model.Item;
 /**
  * The class dealing with the Rock environmental entity.
  *
- * Written by Christo Antony.
+ * @author Christo Antony.
  */
 public class Rock extends Item {
 

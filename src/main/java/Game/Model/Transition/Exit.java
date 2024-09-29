@@ -8,7 +8,7 @@ import Game.Model.State.GameWinState;
 /**
  * The Exit class is concerned with the behaviour of the exit of every maze.
  *
- * Written in full by Christo Antony.
+ * @author Christo Antony.
  */
 public class Exit extends Transition {
     /**

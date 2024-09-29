@@ -33,7 +33,7 @@ public class Sword extends Item {
     @Override
     public void effect(Engine engine) {
         System.out.println("Frail by age but nevertheless guarded by mystical energies of its previous owner," +
-                           " this sword will protect you against the next enemy attack.");
+                " this sword will protect you against the next enemy attack.");
     }
 
     /**

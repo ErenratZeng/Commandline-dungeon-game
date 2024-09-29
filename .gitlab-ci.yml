@@ -6,12 +6,14 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 before_script:
+  - apt-get update && apt-get install -y dos2unix
   - export GRADLE_USER_HOME=`pwd`/.gradle
   - chmod +x ./gradlew
+  - chmod +x ./run_game.sh
 
 build_job:
   stage: build
-  tags: [comp2100]
+  tags: [ comp2100 ]
   image: gradle:latest
   script:
     - ./gradlew assemble
@@ -20,6 +22,12 @@ build_job:
       - build/libs/*.jar
     expire_in: 1 hour
 
+player_move_test:
+  stage: test
+  tags: [comp2100]
+  image: gradle:latest
+  script:
+    - ./run_game.sh
 
 test_job1:
   stage: test
@@ -32,3 +40,4 @@ test_job1:
     reports:
       junit: build/test-results/test/*.xml
     expire_in: 1 hour
+

@@ -1,12 +1,3 @@
-<style>
-.center 
-{
-  width: auto;
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
 <center>
 
 # COMP2120 Assignment 3 - Dungeons Project
@@ -14,13 +5,12 @@
 <div align="center">
     <img src="assets/gradle.png" width="220" height="100"/>
     <img src="assets/JDK17.png" width="220" height="120"/>
-</div>
-<div class="center">
-
 
 #### Pipeline
 ![Pipeline Status](https://gitlab.cecs.anu.edu.au/u7724723/comp2120-fri10_a3_c/badges/main/pipeline.svg
 )
+
+</div>
 
 #
 | Team Members | Roles |
@@ -30,7 +20,7 @@
 | Xiaotian  Cheng (u7769920) | Responsible for NPC, items logic and help menu|
 | Charles Dino (u7140320)     |Responsible for all the document writing        |
 
-</div>
+
 
 ***
 

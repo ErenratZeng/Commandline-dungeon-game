@@ -11,6 +11,7 @@ import Game.Model.State.PlayerHealth;
  * Written by Christo Antony.
  */
 public class GoldenApple extends Item {
+    public static final int HealCapacity = 10;
 
     /**
      * Class constructor.
@@ -30,9 +31,9 @@ public class GoldenApple extends Item {
      */
     @Override
     public void effect(Engine engine) {
-        PlayerHealth health = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
-        Inventory inventory = (Inventory) engine.getState(PlayerHealth.class.getName());
-        health.increaseBy(10);
+        PlayerHealth health = engine.getState(PlayerHealth.class);
+        Inventory inventory = engine.getState(Inventory.class);
+        health.increaseBy(HealCapacity);
         inventory.removeItem(this);
     }
 
@@ -46,7 +47,7 @@ public class GoldenApple extends Item {
     public void onInteract(Engine engine) {
         System.out.println("Consider the doctor's advice with this golden apple. (Re)gain +5 HP.");
         System.out.println("The apple is now in your inventory and awaiting consumption.");
-        Inventory inventory = (Inventory) engine.getState(Inventory.class.getName());
+        Inventory inventory = engine.getState(Inventory.class);
         inventory.addItem(this);
     }
 
@@ -59,4 +60,5 @@ public class GoldenApple extends Item {
     public boolean isBlocking() {
         return super.isBlocking();
     }
+
 }

@@ -18,7 +18,7 @@ public class Exit extends Transition {
      * @param y Vertical coordinate of the exit.
      */
     public Exit(int x, int y) {
-        super(x, y,'Q', "Exit");
+        super(x, y, 'Q', "Exit");
     }
 
     /**
@@ -30,8 +30,8 @@ public class Exit extends Transition {
      */
     @Override
     public void applyTransition(Engine engine) {
-        System.out.println("You found the exit! Escape is now within reach!");
-        GameWinState gameWinState = (GameWinState) engine.getState(GameWinState.class.getName());
+        System.out.println("Yay, you found the exit !!");
+        GameWinState gameWinState = engine.getState(GameWinState.class);
         gameWinState.playerWin();
     }
 }

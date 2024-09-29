@@ -34,16 +34,16 @@ public class Player extends Character {
 
         switch (direction){
             case UP:
-                newX -= 1;
-                break;
-            case DOWN:
-                newX += 1;
-                break;
-            case LEFT:
                 newY -= 1;
                 break;
-            case RIGHT:
+            case DOWN:
                 newY += 1;
+                break;
+            case LEFT:
+                newX -= 1;
+                break;
+            case RIGHT:
+                newX += 1;
                 break;
         }
         return new int[]{newX, newY};

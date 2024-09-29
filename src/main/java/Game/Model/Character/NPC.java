@@ -14,10 +14,10 @@ import Game.Model.State.PlayerHealth;
 public class NPC extends Character {
 
     /** The amount of health the NPC restores to the player. */
-    private static final int HEAL_AMOUNT = 10;
+    public static final int HEAL_AMOUNT = 10;
 
     /** The maximum health of the player. */
-    private static final int MAX_PLAYER_HEALTH = 100;
+    static final int MAX_PLAYER_HEALTH = 100;
 
     /**
      * Constructs a new NPC at the specified position.
@@ -49,7 +49,7 @@ public class NPC extends Character {
      * @return Always returns true, indicating the interaction was successful.
      */
     public boolean onInteract(Engine engine) {
-        PlayerHealth playerHealth = (PlayerHealth) engine.getState(PlayerHealth.class.getName());
+        PlayerHealth playerHealth =  engine.getState(PlayerHealth.class);
         System.out.println("You've met a friendly NPC! He is welling to heal you with 10 health");
 
         int currentHealth = playerHealth.getValue();

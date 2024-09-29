@@ -1,8 +1,5 @@
 package Engine.Model;
 
-import Engine.GameConfig;
-import Game.Model.Transition.Exit;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
@@ -26,7 +23,7 @@ public class Maze {
                     if (! elementMap.containsKey(symbol)) throw new IllegalArgumentException("Unknown Symbol %s found in maze design ".formatted(symbol));
                     String classname = elementMap.get(symbol);
                     Class<?> aClass = Class.forName(classname);
-                    Object elementObject = aClass.getDeclaredConstructor(int.class, int.class).newInstance(i, j);
+                    Object elementObject = aClass.getDeclaredConstructor(int.class, int.class).newInstance(j, i);
                     if (layout[i][j] != null) throw new IllegalArgumentException("The position of %s overlaps it's position with another element".formatted(classname));
                     layout[i][j] = (MazeElement) elementObject;
                }
@@ -60,6 +57,13 @@ public class Maze {
         return out.toString();
     }
 
+    public void setElementAt (int X, int Y, MazeElement mazeElement) {
+        this.layout[Y][X] = mazeElement;
+    }
+
+    public MazeElement getElement(int X, int Y) {
+        return this.layout[Y][X];
+    }
     public int getRows(){
         return layout.length;
     }
@@ -67,8 +71,4 @@ public class Maze {
     public int getCols(){
         return layout[0].length;
     }
-
-    public MazeElement[][] getLayout() {
-        return layout;
     }
-}

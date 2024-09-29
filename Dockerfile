@@ -15,4 +15,4 @@ RUN chmod +x ./gradlew
 RUN ./gradlew build
 
 COPY gson-2.11.0.jar /app/build/libs
-CMD ["java", "-jar", "/app/build/libs/comp2120-fri10_a3_c.jar"]
+CMD ["java", "-jar", "/app/build/libs/comp2120-fri10_a3_c-all.jar"]

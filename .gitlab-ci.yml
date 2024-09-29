@@ -8,7 +8,7 @@ variables:
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
   - chmod +x ./gradlew
-  - chmod +x run_game.sh
+  - chmod +x ./run_game.sh
 
 build_job:
   stage: build

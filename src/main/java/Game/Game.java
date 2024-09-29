@@ -15,8 +15,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This buildable class handles much of the game's interface and links
+ * together code integral to running the game.
+ *
+ * Written by Christo Antony, Qiutong Zeng, Xiaotian Cheng.
+ */
 public class Game {
 
+    /**
+     * The sets of important controls initialised as strings for later reading
+     * in other functions and such.
+     */
     static ArrayList<String> responseControls = new ArrayList<>(Arrays.asList("accept", "decline"));
     static ArrayList<String> movementControls = new ArrayList<>(Arrays.asList("move_up", "move_down", "move_left", "move_right"));
     static ArrayList<String> actionControls = new ArrayList<>(Arrays.asList("inventory", "health", "map", "help"));
@@ -27,11 +37,14 @@ public class Game {
     static Player player;
 
     public static void main(String[] args) {
+        // Read or throw an error depending on the existence of the JSON file.
         try {
             engine = new Engine("src/main/java/Game/GameConfig.json");
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException(e);
         }
+
+        // Initialise the settings and either begin the game or terminate.
         engine.setCurrentMaze("level_1");
         inputController = engine.inputController;
         engine.printTitleScreen();
@@ -45,14 +58,18 @@ public class Game {
                 gameLoop();
                 break;
             case "decline":
-                System.out.println("Thank you for playing !");
+                System.out.println("Closing the game...");
                 break;
             default:
-                System.out.println("Should not happen !");
+                System.out.println("Something went wrong! Terminating...");
                 break;
         }
     }
 
+    /**
+     * This method is set to constantly run and handle player input as well as
+     * terminating the game once the player wins or loses.
+     */
     public static void gameLoop() {
         engine.setOnMazeChange(() -> player = engine.getCharacter(Player.class).get(0));
         Inventory inventory = engine.getState(Inventory.class);
@@ -96,37 +113,42 @@ public class Game {
             }
 
             if (gameWinState.getValue() == GameWinState.WinState.PLAYER_WIN) {
-                System.out.println("Yay you won the game !");
+                System.out.println("You won!");
                 engine.printTextBlock("ending");
                 System.out.println("Exiting game...");
                 break;
             }
             if (gameWinState.getValue() == GameWinState.WinState.PLAYER_LOSE) {
-                System.out.println("Oops you lost the Game ! Exiting game...");
+                System.out.println("The game is lost. Exiting game...");
                 break;
             }
 
         }
     }
 
+    /**
+     * Handles player interaction with the inventory system.
+     *
+     * @param inventory The current inventory.
+     */
     public static void InventoryMenu(Inventory inventory) {
         Engine.printHeaderBlock("Inventory");
         while (true) {
             int inventorySize = inventory.getValue().size();
             if (inventorySize == 0) {
-                System.out.println("Oops the inventory is empty !");
+                System.out.println("Your inventory is empty.");
                 break;
             }
             inventory.print();
-            int response = inputController.getIntegerInput(0, inventory.getValue().size(), "Enter an item to use (0 to exit)", "Inventory");
+            int response = inputController.getIntegerInput(0, inventory.getValue().size(), "Enter an item to use (0 to exit).", "Inventory");
             if (response == 0) {
                 break;
             }
             Item item = inventory.getItem(response - 1);
             item.effect(engine);
-            System.out.println(item.getName() + "has been applied !");
+            System.out.println(item.getName() + "has been applied!");
         }
-        System.out.println("Exiting Inventory Menu !");
+        System.out.println("Returning to map display...");
     }
 
     /**

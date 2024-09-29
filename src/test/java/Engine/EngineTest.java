@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -109,7 +108,7 @@ class EngineTest {
      */
     @Test
     void validateGameStates() {
-        assertEquals(engine.gameStates.values().size(), 3);
+        assertEquals(engine.gameStates.values().size(), 4);
         GameLevel gameLevel = engine.getState(GameLevel.class);
         assertNotNull(gameLevel);
         Inventory inventory = engine.getState(Inventory.class);

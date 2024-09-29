@@ -4,7 +4,6 @@ import Engine.Controller.InputController;
 import Engine.Engine;
 import Engine.Model.Direction;
 import Engine.Model.Item;
-import Game.Model.State.GameLevel;
 import Game.Model.State.GameWinState;
 import Game.Model.State.Inventory;
 import Game.Model.Character.Player;
@@ -59,10 +58,6 @@ public class Game {
         GameWinState gameWinState = engine.getState(GameWinState.class);
         PlayerHealth playerHealth = engine.getState(PlayerHealth.class);
         while (true) {
-            if (gameWinState.getValue() == GameWinState.WinState.PLAYER_LOSE || playerHealth.getValue() == 0){
-                System.out.println("Oops! You've lost your path! You feel tired and fall into a deep slumber....");
-                break;
-            }
             engine.printMap();
             String command = inputController.getInput(null, "dungeon", movementControls, actionControls, exitControls);
             switch (command) {
@@ -105,11 +100,10 @@ public class Game {
                 System.out.println("Exiting game...");
                 break;
             }
-            if (gameWinState.getValue() == GameWinState.WinState.PLAYER_LOSE) {
-                System.out.println("Oops you lost the Game ! Exiting game...");
+            if (gameWinState.getValue() == GameWinState.WinState.PLAYER_LOSE || playerHealth.getValue() == 0) {
+                System.out.println("Exiting game...");
                 break;
             }
-
         }
     }
 

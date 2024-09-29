@@ -188,7 +188,7 @@ public class Engine {
         } else if (elementNewXY instanceof Character tileCharacter) {
             boolean canMoveInto = tileCharacter.onInteract(this);
             if (!canMoveInto) {
-                System.out.println("Move blocked by " + character.getName());
+                System.out.println("Move blocked by " + tileCharacter.getName());
                 return;
             }
         } else if (elementNewXY instanceof Item item) {

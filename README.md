@@ -17,6 +17,11 @@
 </div>
 <div class="center">
 
+
+#### Pipeline
+![Pipeline Status](https://gitlab.cecs.anu.edu.au/u7724723/comp2120-fri10_a3_c/badges/main/pipeline.svg
+)
+
 #
 | Team Members | Roles |
 | ------ | ------ |

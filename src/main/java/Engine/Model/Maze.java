@@ -26,8 +26,8 @@ public class Maze {
                     Object elementObject = aClass.getDeclaredConstructor(int.class, int.class).newInstance(j, i);
                     if (layout[i][j] != null) throw new IllegalArgumentException("The position of %s overlaps it's position with another element".formatted(classname));
                     layout[i][j] = (MazeElement) elementObject;
-               }
-           }
+                }
+            }
 
         } catch (IllegalArgumentException e) {
             System.err.println("Error while constructing maze: " + e.getMessage());
@@ -71,4 +71,4 @@ public class Maze {
     public int getCols(){
         return layout[0].length;
     }
-    }
+}
